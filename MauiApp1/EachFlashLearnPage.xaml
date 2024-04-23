@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.EachFlashLearnPage"
+             BackgroundColor="#5DB075"
+             Shell.NavBarIsVisible="False">
+    <VerticalStackLayout Padding="30,0" Spacing="25">
+        <Grid Padding="30,0" Margin="0,30,0,0">
+            <!-- Page Header -->
+            <StackLayout Grid.Column="0" Orientation="Horizontal">
+                <!-- Back -->
+                <Label Text="Back"
+                    VerticalOptions="Center"
+                    FontFamily="Inter"
+                    FontSize="16"
+                    TextDecorations="Underline"
+                    TextColor="White">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <!-- Flashcard -->
+                <Label Text="Settings" 
+                    HorizontalOptions="CenterAndExpand"
+                    FontFamily="Inter"
+                    FontSize="30"
+                    FontAttributes="Bold"
+                    TextColor="#000000" />
+                <!-- Log Out -->
+                <Label Text="Log Out" 
+                    VerticalOptions="Center"
+                    FontFamily="Inter"
+                    FontSize="16"
+                    TextDecorations="Underline"
+                    TextColor="White">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LogOutCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+        </Grid>
+
+        <StackLayout Padding="30,0" Margin="0,30,0,0">
+            <!-- Flashcards Section -->
+            <Frame BackgroundColor="White"
+                   WidthRequest="343"
+                   HeightRequest="225"
+                   Margin="0,0,0,60"
+                   Padding="30,0"
+                   TranslationY="115">
+                <!-- Content for Flashcards Section -->
+                <Grid VerticalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <!-- Row for Flashcards label -->
+                        <RowDefinition Height="Auto" />
+                        <!-- Row for Click me button -->
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Flashcards label -->
+                    <Label Text="Select voice"
+                           HorizontalOptions="CenterAndExpand"
+                           FontFamily="Inter"
+                           FontSize="30"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           TextColor="#000000"
+                           Grid.Row="0"
+                           Margin="0,0,0,0" />
+
+                    <Label Text="assistance"
+                           HorizontalOptions="CenterAndExpand"
+                           FontFamily="Inter"
+                           FontSize="30"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           TextColor="#000000"
+                           Margin="0,0,0,10" 
+                           Grid.Row="1"/>
+                    <!-- Add margin at the bottom to create spacing -->
+
+                    <!-- Toggle Switch Control -->
+                    <StackLayout Padding="80,0" Grid.Row="2" Orientation="Horizontal">
+                        <!-- Off Label -->
+                        <Label Text="Off"
+                               VerticalOptions="Center"
+                               FontFamily="Inter"
+                               FontSize="16"
+                               TextColor="Green"/>
+                        <!-- Switch -->
+                        <Switch IsToggled="{Binding IsSwitchToggled}" HorizontalOptions="CenterAndExpand"/>
+                        <!-- On Label -->
+                        <Label Text="On" 
+                               VerticalOptions="Center"
+                               FontFamily="Inter"
+                               FontSize="16"
+                               TextColor="Green"/>
+                    </StackLayout>
+
+
+                    <!-- Add margin at the top to create spacing -->
+                </Grid>
+
+            </Frame>
+
+        </StackLayout>
+        <Button Text="Click me"
+            TextColor="DarkGreen"
+            Command="{Binding NavigateCommand}"
+                CommandParameter="{Binding SelectedSet}"
+            Margin="30,10,30,0" 
+            BackgroundColor="#E5E5E5"
+/>
+
+    </VerticalStackLayout>
+</ContentPage>

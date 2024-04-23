@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<path d="M19.7777 10.8889V21.3333C19.7777 21.7016 19.4793 22 19.1111 22H4.88883C4.52065 22 4.22217 21.7016 4.22217 21.3333V10.8889" stroke="#5DB075" stroke-width="2.67956" stroke-linecap="round" stroke-linejoin="round"/>
+	<path d="M9.77783 17.5556V10.8889" stroke="#5DB075" stroke-width="2.67956" stroke-linecap="round" stroke-linejoin="round"/>
+	<path d="M14.2222 17.5556V10.8889" stroke="#5DB075" stroke-width="2.67956" stroke-linecap="round" stroke-linejoin="round"/>
+	<path d="M22 6.44444H16.4444M16.4444 6.44444V2.66667C16.4444 2.29848 16.146 2 15.7778 2H8.22222C7.85403 2 7.55556 2.29848 7.55556 2.66667V6.44444M16.4444 6.44444H7.55556M2 6.44444H7.55556" stroke="#5DB075" stroke-width="2.67956" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.PersonalCabinetPage"
+             Title="PersonalCabinetPage">
+    <VerticalStackLayout Padding="30,0" Spacing="25">
+        <Grid Padding="30,0">
+            <!-- Page Header -->
+            <StackLayout Grid.Column="0" Orientation="Horizontal">
+                <!-- Back -->
+                <Label Text="Back"
+                VerticalOptions="Center"
+                FontFamily="Inter"
+                FontSize="16"
+                TextDecorations="Underline"
+                TextColor="#5DB075">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <!-- Flashcard -->
+                <Label Text="Profile" 
+                HorizontalOptions="CenterAndExpand"
+                FontFamily="Inter"
+                FontSize="30"
+                FontAttributes="Bold"
+                TextColor="#000000" />
+                <!-- Log Out -->
+                <Label Text="Log Out" 
+                VerticalOptions="Center"
+                FontFamily="Inter"
+                FontSize="16"
+                TextDecorations="Underline"
+                TextColor="#5DB075">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LogOutCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiApp1.SignUpPage"
+             xmlns:newfolder1="clr-namespace:MauiApp1.NewFolder1"
+             x:DataType="newfolder1:SignUpViewModel"
+             Shell.NavBarIsVisible="False">
+    <VerticalStackLayout
+        Padding="30,0"
+        Spacing="25">
+
+
+        <Grid Padding="30,0" Margin="0,30,0,0">
+            <!-- Page Header -->
+            <StackLayout Grid.Column="0" Orientation="Horizontal">
+                <!-- Sign Up -->
+                <Label Text="Home"
+                    TextColor="White"/>
+                <Label Text="Sign Up" 
+                   HorizontalOptions="CenterAndExpand"
+                   FontFamily="Inter"
+                   FontSize="30"
+                   FontAttributes="Bold"
+                   TextColor="#000000" />
+                <!-- Log In -->
+                <Label Text="Log In" 
+                   VerticalOptions="Center"
+                   FontFamily="Inter"
+                   FontSize="16"
+                   TextDecorations="Underline"
+                   TextColor="#5DB075">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToLoginPageCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+
+            <!-- Your other content goes here -->
+        </Grid>
+
+
+
+        <StackLayout Padding="20">
+            <Entry Placeholder="Username" Text="{Binding Username}" />
+            <Entry Placeholder="Group" Text="{Binding Group}" />
+            <Entry Placeholder="Email" Text="{Binding Email}" />
+            <Entry Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
+            <Entry Placeholder="Confirm Password" IsPassword="True" Text="{Binding ConfirmPassword}" />
+
+            <!-- Checkbox -->
+            <StackLayout Grid.Column="0" Margin="10,5,-1,20" VerticalOptions="Start">
+                <StackLayout Orientation="Horizontal">
+                    <CheckBox />
+                    <Label Text="I would like to receive your new and other useful information."
+                       FontFamily="Inter"
+                       FontSize="14"
+                       FontAttributes="None"
+                       TextColor="#666666"
+                       HorizontalOptions="FillAndExpand"
+                       LineBreakMode="WordWrap" />
+                </StackLayout>
+            </StackLayout>
+
+            <Button Text="Sign Up" 
+                    Command="{Binding SignUpCommand}" 
+                    BackgroundColor="Green"/>
+        </StackLayout>
+    </VerticalStackLayout>
+</ContentPage>
