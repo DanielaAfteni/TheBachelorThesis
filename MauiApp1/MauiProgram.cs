@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Media;
 using MauiApp1.NewFolder1;
-using MauiApp1.Platforms;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 
@@ -47,10 +47,10 @@ namespace MauiApp1
 
             builder.Services.AddTransient<EachFlashQuizVoicePage>();
             builder.Services.AddTransient<EachFlashQuizVoiceViewModel>();
-//#if __ANDROID__
- //           builder.Services.AddSingleton<ISpeechToText, SpeechToTextImplementation>();
-//#endif
-
+            //#if __ANDROID__
+            //           builder.Services.AddSingleton<ISpeechToText, SpeechToTextImplementation>();
+            //#endif
+            builder.Services.AddSingleton<ISpeechToText>(SpeechToText.Default);
 
 
 
