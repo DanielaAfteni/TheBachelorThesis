@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -11,15 +12,85 @@ namespace MauiApp1.NewFolder1
 {
     public partial class ScheduleViewModel: ObservableRecipient
     {
+
+        private string _group;
+        private string _day;
         private RelayCommand _pickPdfCommand;
 
         private RelayCommand _goBackCommand;
         private RelayCommand _logOutCommand;
+        private RelayCommand _goToScheduleDayCommand;
+        private RelayCommand _goToScheduleGroupCommand;
+
+
+        public string Group
+        {
+            get => _group;
+            set => SetProperty(ref _group, value);
+        }
+
+        public string Day
+        {
+            get => _day;
+            set => SetProperty(ref _day, value);
+        }
 
         public ICommand GoBackCommand => _goBackCommand ??= new RelayCommand(ExecuteGoBack);
         public ICommand LogOutCommand => _logOutCommand ??= new RelayCommand(ExecuteLogOut);
 
+        public ICommand GoToScheduleDayCommand => _goToScheduleDayCommand ??= new RelayCommand(ExecuteGoToScheduleDayCommand);
+        public ICommand GoToScheduleGroupCommand => _goToScheduleGroupCommand ??= new RelayCommand(ExecuteGoToScheduleGroupCommand);
+
+
         public ICommand PickPdfCommand => _pickPdfCommand ??= new RelayCommand(ExecutePickPdf);
+
+
+
+        private async void ExecuteGoToScheduleGroupCommand()
+        {
+            bool isValid = ValidateScheduleGroup();
+
+            if (isValid)
+            {
+                await Shell.Current.Navigation.PushAsync(new ScheduleGroupPage(Group));
+            }
+            else
+            {
+                // Display an error message
+                await Application.Current.MainPage.DisplayAlert("Error", "Invalid Group name.", "OK");
+            }
+
+        }
+
+        private async void ExecuteGoToScheduleDayCommand()
+        {
+            bool isValid = ValidateScheduleDay();
+
+            if (isValid)
+            {
+                await Shell.Current.Navigation.PushAsync(new ScheduleDayPage(Day));
+            }
+            else
+            {
+                // Display an error message
+                await Application.Current.MainPage.DisplayAlert("Error", "Invalid Day.", "OK");
+            }
+
+        }
+
+        private bool ValidateScheduleGroup()
+        {
+            // Perform login validation logic here
+            // For demonstration purposes, let's assume validation is successful if both fields are non-empty
+            return !string.IsNullOrEmpty(Group);
+        }
+
+        private bool ValidateScheduleDay()
+        {
+            // Perform login validation logic here
+            // For demonstration purposes, let's assume validation is successful if both fields are non-empty
+            return !string.IsNullOrEmpty(Day);
+        }
 
         private async void ExecutePickPdf()
         {

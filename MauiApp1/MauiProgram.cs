@@ -76,6 +76,14 @@ namespace MauiApp1
             builder.Services.AddSingleton<SchedulePage>();
             builder.Services.AddSingleton<ScheduleViewModel>();
 
+            builder.Services.AddSingleton<ScheduleGroupPage>();
+            builder.Services.AddSingleton<ScheduleGroupViewModel>();
+
+            builder.Services.AddSingleton<ScheduleDayPage>();
+            builder.Services.AddSingleton<ScheduleDayViewModel>();
+
+
+
             builder.Services.AddSingleton<PersonalCabinetPage>();
             builder.Services.AddSingleton<PersonalCabinetViewModel>();
 

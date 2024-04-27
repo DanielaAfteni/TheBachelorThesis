@@ -36,9 +36,15 @@ namespace MauiApp1.NewFolder1
         public ICommand LogOutCommand => _logOutCommand ??= new RelayCommand(ExecuteLogOut);
 
 
-
-
         private CancellationTokenSource tokenSource = new CancellationTokenSource();
+
+
+        private bool _nextCommandSpoken = false;
+
+
+
+
+
 
         public EachFlashQuizVoiceViewModel (Set selectedSet)
         {
@@ -47,7 +53,7 @@ namespace MauiApp1.NewFolder1
 
             Title = selectedSet.title;
             Flashcards = selectedSet.flashcards;
-            SpeakQuestions();
+            //SpeakQuestions();
             //_ = StartListening();
 
 
@@ -81,176 +87,6 @@ namespace MauiApp1.NewFolder1
             }
         }
 
-        /*private async void Listen()
-        {
-            var isGranted = await SpeechToText.RequestPermissions();
-            if (!isGranted)
-            {
-                await Toast.Make("Permission not granted").Show(CancellationToken.None);
-                return;
-            }
-
-            var recognitionResult = await SpeechToText.ListenAsync(
-                                                CultureInfo.GetCultureInfo("en-us"),
-                                                new Progress<string>(partialText =>
-                                                {
-                                                    RecognitionText += partialText + " ";
-                                                }), tokenSource.Token);
-
-            if (recognitionResult.IsSuccessful)
-            {
-                RecognitionText = recognitionResult.Text;
-                Console.WriteLine($"TEXT: {RecognitionText}");
-            }
-            else
-            {
-                await Toast.Make(recognitionResult.Exception?.Message ?? "Unable to recognize speech").Show(CancellationToken.None);
-            }
-        }
-
-        private void ListenCancel()
-        {
-            tokenSource?.Cancel();
-        }*/
-
-
-        /*private async void StartListening()
-        {
-            var isGranted = await SpeechToText.RequestPermissions();
-            if (!isGranted)
-            {
-                await Toast.Make("Permission not granted").Show(CancellationToken.None);
-                return;
-            }
-
-            SpeechToText.Default.RecognitionResultUpdated += OnRecognitionTextUpdated;
-            SpeechToText.Default.RecognitionResultCompleted += OnRecognitionTextCompleted;
-            await SpeechToText.StartListenAsync(CultureInfo.CurrentCulture, CancellationToken.None);
-            
-        }
-
-        private async void StopListening()
-        {
-            await SpeechToText.StopListenAsync(CancellationToken.None);
-            SpeechToText.Default.RecognitionResultUpdated -= OnRecognitionTextUpdated;
-            SpeechToText.Default.RecognitionResultCompleted -= OnRecognitionTextCompleted;
-        }
-
-        void OnRecognitionTextUpdated(object? sender, SpeechToTextRecognitionResultUpdatedEventArgs args)
-        {
-            Console.WriteLine($"TEXT2: {RecognitionText}");
-            RecognitionText += args.RecognitionResult;
-            Console.WriteLine($"TEXT2: {RecognitionText}");
-        }
-
-        void OnRecognitionTextCompleted(object? sender, SpeechToTextRecognitionResultCompletedEventArgs args)
-        {
-            Console.WriteLine($"TEXT1: {RecognitionText}");
-            RecognitionText = args.RecognitionResult;
-            Console.WriteLine($"TEXT1: {RecognitionText}");
-        }*/
-
-        /*private async void Listen()
-        {
-            var isGranted = await SpeechToText.RequestPermissions();
-            if (!isGranted)
-            {
-                await Toast.Make("Permission not granted").Show(CancellationToken.None);
-                return;
-            }
-
-            var recognitionResult = await SpeechToText.ListenAsync(
-                                                CultureInfo.GetCultureInfo("en-us"),
-                                                new Progress<string>(partialText =>
-                                                {
-                                                    RecognitionText += partialText + " ";
-                                                }), tokenSource.Token);
-
-            if (recognitionResult.IsSuccessful)
-            {
-                Console.WriteLine($"TEXT0: {RecognitionText}");
-                RecognitionText = recognitionResult.Text;
-                Console.WriteLine($"TEXT: {RecognitionText}");
-            }
-            else
-            {
-                Console.WriteLine($"Nooooooooooooooo");
-                await Toast.Make(recognitionResult.Exception?.Message ?? "Unable to recognize speech").Show(CancellationToken.None);
-            }
-        }*/
-
-        /*private async void Listen()
-        {
-            var isAuthorized = await SpeechToText.RequestPermissions();
-            if (isAuthorized)
-            {
-                Console.WriteLine($"I am isAuthorized");
-                try
-                {
-                    Console.WriteLine($"Doing recodniton");
-                    var recodgnitionResult = await SpeechToText.ListenAsync(CultureInfo.GetCultureInfo("en-us"),
-                        new Progress<string>(partialText =>
-                        {
-                            Console.WriteLine($"If Statement");
-                            if (DeviceInfo.Platform == DevicePlatform.Android)
-                            {
-                                Console.WriteLine($"If Statement OK");
-                                RecognitionText = partialText;
-                                Console.WriteLine($"TEXT1: {RecognitionText}");
-                            }
-                            else
-                            {
-                                Console.WriteLine($"If Statement NOT");
-                                RecognitionText += partialText + " ";
-                                Console.WriteLine($"TEXT: {RecognitionText}");
-                            }
-
-                            OnPropertyChanged(nameof(RecognitionText));
-                        }), tokenSource.Token);
-                }
-                catch (Exception ex)
-                {
-                    await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
-                }
-            }
-            else
-            {
-                await Application.Current.MainPage.DisplayAlert("Permission Error", "No microphone access", "OK");
-            }
-        }
-
-        private void ListenCancel()
-        {
-            tokenSource?.Cancel();
-        }*/
-
-        /*async Task Listen()
-        {
-            var isGranted = await SpeechToText.RequestPermissions();
-            if (!isGranted)
-            {
-                await Toast.Make("Permission not granted").Show(CancellationToken.None);
-                return;
-            }
-
-            var recognitionResult = await SpeechToText.ListenAsync(
-                                                CultureInfo.GetCultureInfo("en-us"),
-                                                new Progress<string>(partialText =>
-                                                {
-                                                    RecognitionText += partialText + " ";
-                                                }), tokenSource.Token);
-
-            if (recognitionResult.IsSuccessful)
-            {
-                RecognitionText = recognitionResult.Text;
-            }
-            else
-            {
-                await Toast.Make(recognitionResult.Exception?.Message ?? "Unable to recognize speech").Show(CancellationToken.None);
-            }
-        }*/
-
-
         async Task Listen()
         {
             RecognitionText = string.Empty;
@@ -281,19 +117,6 @@ namespace MauiApp1.NewFolder1
 
         private async void StartListening()
         {
-
-            /*var isGranted = await SpeechToText.RequestPermissions();
-            if (!isGranted)
-            {
-                await Toast.Make("Permission not granted").Show(CancellationToken.None);
-                return;
-            }
-
-            SpeechToText.RecognitionResultUpdated += OnRecognitionTextUpdated;
-            SpeechToText.RecognitionResultCompleted += OnRecognitionTextCompleted;
-            Console.WriteLine($"TEXT: {RecognitionText}");
-            await SpeechToText.StartListenAsync(CultureInfo.CurrentCulture, CancellationToken.None);*/
-
             var isGranted = await SpeechToText.RequestPermissions();
             if (!isGranted)
             {
@@ -302,10 +125,12 @@ namespace MauiApp1.NewFolder1
             }
 
             SpeechToText.Default.RecognitionResultUpdated += OnRecognitionTextUpdated;
+            //Console.WriteLine($"TEXT10: {RecognitionText}");
             SpeechToText.Default.RecognitionResultCompleted += OnRecognitionTextCompleted;
-            Console.WriteLine($"TEXT10: {RecognitionText}");
+            //Console.WriteLine($"TEXT10: {RecognitionText}");
 
             await SpeechToText.StartListenAsync(CultureInfo.CurrentCulture, CancellationToken.None);
+            Console.WriteLine($"TEXT10: {RecognitionText}");
 
         }
 
@@ -332,6 +157,14 @@ namespace MauiApp1.NewFolder1
             var curr1 = args.RecognitionResult.ToString();
             RecognitionText = args.RecognitionResult;
             Console.WriteLine($"TEXT1111: {curr1}");
+
+            // Check if the recognized text contains the word "next"
+            if (curr1.ToLower().Contains("next") && !_nextCommandSpoken)
+            {
+                // If "next" is detected and not spoken yet, speak the questions
+                _nextCommandSpoken = true; // Set the flag to true to prevent multiple executions
+                _ = SpeakQuestions();
+            }
         }
 
     }

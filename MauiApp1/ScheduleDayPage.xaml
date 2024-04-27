@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiApp1.ChatGPTPage"
-             Title="ChatGPTPage">
+             x:Class="MauiApp1.ScheduleDayPage"
+             Title="ScheduleDayPage">
     <VerticalStackLayout Padding="30,0" Spacing="25">
         <Grid Padding="30,0">
             <!-- Page Header -->
@@ -19,7 +19,7 @@
                     </Label.GestureRecognizers>
                 </Label>
                 <!-- Flashcard -->
-                <Label Text="ChatGPT" 
+                <Label Text="Schedule" 
                     HorizontalOptions="CenterAndExpand"
                     FontFamily="Inter"
                     FontSize="30"

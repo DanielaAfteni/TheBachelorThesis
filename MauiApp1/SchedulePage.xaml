@@ -2,47 +2,148 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.SchedulePage"
-             Title="SchedulePage">
-    <VerticalStackLayout Padding="30,0" Spacing="25">
-        <Grid Padding="30,0">
-            <!-- Page Header -->
-            <StackLayout Grid.Column="0" Orientation="Horizontal">
-                <!-- Back -->
-                <Label Text="Back"
-                    VerticalOptions="Center"
-                    FontFamily="Inter"
-                    FontSize="16"
-                    TextDecorations="Underline"
-                    TextColor="#5DB075">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoBackCommand}" />
-                    </Label.GestureRecognizers>
-                </Label>
-                <!-- Flashcard -->
-                <Label Text="Schedule" 
-                    HorizontalOptions="CenterAndExpand"
-                    FontFamily="Inter"
-                    FontSize="30"
-                    FontAttributes="Bold"
-                    TextColor="#000000" />
-                <!-- Log Out -->
-                <Label Text="Log Out" 
-                    VerticalOptions="Center"
-                    FontFamily="Inter"
-                    FontSize="16"
-                    TextDecorations="Underline"
-                    TextColor="#5DB075">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding LogOutCommand}"/>
-                    </Label.GestureRecognizers>
-                </Label>
-            </StackLayout>
-        </Grid>
+             Title="SchedulePage"
+             Shell.NavBarIsVisible="False">
+    <ScrollView Margin="0,30,0,0">
+        <VerticalStackLayout Padding="30,0" Spacing="25">
+            <Grid Padding="30,0">
+                <!-- Page Header -->
+                <StackLayout Grid.Column="0" Orientation="Horizontal">
+                    <!-- Back -->
+                    <Label Text="Back"
+                        VerticalOptions="Center"
+                        FontFamily="Inter"
+                        FontSize="16"
+                        TextDecorations="Underline"
+                        TextColor="#5DB075">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <!-- Flashcard -->
+                    <Label Text="Schedule" 
+                        HorizontalOptions="CenterAndExpand"
+                        FontFamily="Inter"
+                        FontSize="30"
+                        FontAttributes="Bold"
+                        TextColor="#000000" />
+                    <!-- Log Out -->
+                    <Label Text="Log Out" 
+                        VerticalOptions="Center"
+                        FontFamily="Inter"
+                        FontSize="16"
+                        TextDecorations="Underline"
+                        TextColor="#5DB075">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LogOutCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </Grid>
 
-        <StackLayout>
-            <!-- Button to trigger file picker -->
-            <Button Text="Pick Schedule PDF" Command="{Binding PickPdfCommand}" />
-        </StackLayout>
-        
-    </VerticalStackLayout>
+            <StackLayout Padding="30,0">
+                <!-- Flashcards Section -->
+                <Frame BackgroundColor="#E5E5E5"
+                    WidthRequest="343"
+                    HeightRequest="175"
+                    Margin="0,0,0,20"
+                    Padding="30,0">
+                    <!-- Content for Flashcards Section -->
+                    <Grid VerticalOptions="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <!-- Row for Flashcards label -->
+                            <RowDefinition Height="Auto" />
+                            <!-- Row for Click me button -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Flashcards label -->
+                        <Label Text="By group"
+                             HorizontalOptions="CenterAndExpand"
+                             FontFamily="Inter"
+                             FontSize="30"
+                             FontAttributes="Bold"
+                             VerticalOptions="Center"
+                             TextColor="#000000"
+                             Grid.Row="0"
+                             Margin="0,0,0,10" />
+                        <!-- Add margin at the bottom to create spacing -->
+
+                        <Grid Grid.Row="1" ColumnSpacing="20">
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Entry Placeholder="Group name" 
+                               Text="{Binding Group}" 
+                               Grid.Row="1"
+                               Grid.Column="0"
+                              />
+                            <!-- Click me button -->
+                            <Button Text="Click me"
+                             Command="{Binding GoToScheduleGroupCommand}"
+                             Grid.Row="1"
+                             Grid.Column="1"
+                             Margin="0,10,0,0" 
+                             BackgroundColor="Green"
+                            />
+                            <!-- Add margin at the top to create spacing -->
+                        </Grid>
+                    </Grid>
+                </Frame>
+
+                <Frame BackgroundColor="#E5E5E5"
+                    WidthRequest="343"
+                    HeightRequest="175"
+                    Margin="0,0,0,20"
+                    Padding="30,0">
+                    <!-- Content for Flashcards Section -->
+                    <Grid VerticalOptions="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <!-- Row for Flashcards label -->
+                            <RowDefinition Height="Auto" />
+                            <!-- Row for Click me button -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Flashcards label -->
+                        <Label Text="By day"
+                            HorizontalOptions="CenterAndExpand"
+                            FontFamily="Inter"
+                            FontSize="30"
+                            FontAttributes="Bold"
+                            VerticalOptions="Center"
+                            TextColor="#000000"
+                            Grid.Row="0"
+                            Margin="0,0,0,10" />
+                        <!-- Add margin at the bottom to create spacing -->
+                        <Grid Grid.Row="1" ColumnSpacing="20">
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Entry Placeholder="Day" 
+                               Text="{Binding Day}" 
+                               Grid.Row="1"
+                               Grid.Column="0"/>
+                            <!-- Click me button -->
+                            <Button Text="Click me"
+                                 Command="{Binding GoToScheduleDayCommand}"
+                                 Grid.Row="1"
+                                 Grid.Column="1"
+                                 Margin="0,10,0,0" 
+                                 BackgroundColor="Green"/>
+                            <!-- Add margin at the top to create spacing -->
+                        </Grid>
+                    </Grid>
+                </Frame>
+            </StackLayout>
+            
+
+        </VerticalStackLayout>
+       </ScrollView>
 </ContentPage>
