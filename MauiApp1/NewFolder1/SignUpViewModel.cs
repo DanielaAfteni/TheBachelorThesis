@@ -293,13 +293,13 @@ namespace MauiApp1.NewFolder1
                 Console.WriteLine($"nickname: {Username}");
 
 
-                var userId = "ac92088d - 083c - 4a1d - a5be - fe9325d2961b";
+                /*var userId = "ac92088d - 083c - 4a1d - a5be - fe9325d2961b";
 
                 // Display userId in the console
                 Console.WriteLine($"The userID is {userId}");
-                await Shell.Current.Navigation.PushAsync(new HomePage(userId));
+                await Shell.Current.Navigation.PushAsync(new HomePage(userId));*/
                 // Serialize the payload
-                /*var jsonPayload = JsonConvert.SerializeObject(payload);
+                var jsonPayload = JsonConvert.SerializeObject(payload);
 
                 // Send POST request to the API
                 using var client = new HttpClient();
@@ -314,7 +314,7 @@ namespace MauiApp1.NewFolder1
                     var responseData = JsonConvert.DeserializeObject<dynamic>(responseContent);
 
                     // Extract the userId from the response
-                    var userId = responseData.userId;
+                    string userId = responseData.userId;
 
                     // Display userId in the console
                     Console.WriteLine($"The userID is {userId}");
@@ -325,7 +325,7 @@ namespace MauiApp1.NewFolder1
                     Console.WriteLine($"Failed to register user. Status code: {response.StatusCode}");
                     // Display an error message if request fails
                     await Application.Current.MainPage.DisplayAlert("Error", "Failed to register user.", "OK");
-                }*/
+                }
             }
             else
             {
