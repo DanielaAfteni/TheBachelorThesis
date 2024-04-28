@@ -22,8 +22,8 @@ namespace MauiApp1.NewFolder1
 
         public EachFlashLearnTextViewModel(Set selectedSet) 
         {
-            Title = selectedSet.title;
-            Flashcards = selectedSet.flashcards;
+            Title = selectedSet.Title;
+            Flashcards = selectedSet.Flashcards;
         }
 
         private async void ExecuteGoBack()

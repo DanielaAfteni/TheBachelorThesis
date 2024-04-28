@@ -82,7 +82,7 @@
                                     </Grid.RowDefinitions>
 
                                     <!-- Flashcards label -->
-                                    <Label Text="{Binding question}"
+                                    <Label Text="{Binding Question}"
                                         HorizontalOptions="CenterAndExpand"
                                         FontFamily="Inter"
                                         FontSize="20"
@@ -108,8 +108,8 @@
                         <DataTemplate>
                             <!-- Display question and answer of each flashcard -->
                             <StackLayout>
-                                <Label Text="{Binding question}" />
-                                <Label Text="{Binding answer}" />
+                                <Label Text="{Binding Question}" />
+                                <Label Text="{Binding Answer}" />
                             </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

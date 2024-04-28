@@ -25,8 +25,8 @@ namespace MauiApp1.NewFolder1
 
         public EachFlashQuizTextViewModel(Set selectedSet)
         {
-            Title = selectedSet.title;
-            Flashcards = selectedSet.flashcards;
+            Title = selectedSet.Title;
+            Flashcards = selectedSet.Flashcards;
         }
 
         private async void ExecuteGoBack()
@@ -46,7 +46,7 @@ namespace MauiApp1.NewFolder1
             int correctCount = 0;
             for (int i = 0; i < Flashcards.Count; i++)
             {
-                if (i < UserAnswers.Count && Flashcards[i].answer == UserAnswers[i])
+                if (i < UserAnswers.Count && Flashcards[i].Answer == UserAnswers[i])
                 {
                     correctCount++;
                 }

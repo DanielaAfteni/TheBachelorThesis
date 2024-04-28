@@ -31,8 +31,8 @@ namespace MauiApp1.NewFolder1
         public EachFlashQuizViewModel (Set selectedSet)
         {
             SelectedSet = selectedSet;
-            Title = selectedSet.title;
-            Flashcards = selectedSet.flashcards;
+            Title = selectedSet.Title;
+            Flashcards = selectedSet.Flashcards;
         }
 
         public ICommand GoBackCommand => _goBackCommand ??= new RelayCommand(ExecuteGoBack);
@@ -81,7 +81,7 @@ namespace MauiApp1.NewFolder1
                 // Navigate to the text page
                 await Shell.Current.Navigation.PushAsync(new EachFlashQuizTextPage(selectedSet));
                 Console.WriteLine($"EachFlashQuizTextPage SELECTED");
-                Console.WriteLine($"{selectedSet.title}");
+                Console.WriteLine($"{selectedSet.Title}");
             }
             // Navigate to the EachFlashcardSet page and pass the selected set
         }

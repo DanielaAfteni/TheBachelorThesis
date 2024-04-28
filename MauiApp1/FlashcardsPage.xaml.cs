@@ -12,10 +12,10 @@ namespace MauiApp1
 {
     public partial class FlashcardsPage : ContentPage
     {
-        public FlashcardsPage(FlashcardsViewModel vm)
+        public FlashcardsPage(string userId)
         {
             InitializeComponent(); // Make sure InitializeComponent() method is generated
-            BindingContext = vm;
+            BindingContext = new FlashcardsViewModel(userId);
         }
 
         private async void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -66,8 +66,8 @@ namespace MauiApp1.NewFolder1
                 Console.WriteLine($"twoFactorCode: string");
                 Console.WriteLine($"twoFactorRecoveryCode: string");
 
-
-                var userId = "ac92088d - 083c - 4a1d - a5be - fe9325d2961b";
+                string userId = "5be4d3be-0e16-4ad7-ab26-2717fa8087d1";
+                //string userId = "587d9ff9-9279-419e-b093-813027fd1bf0";
 
                 // Display userId in the console
                 Console.WriteLine($"The LOGGED IN userID is {userId}");
@@ -85,7 +85,7 @@ namespace MauiApp1.NewFolder1
                     var responseData = JsonConvert.DeserializeObject<dynamic>(responseContent);
 
                     // Extract the userId from the response
-                    var userId = "ac92088d - 083c - 4a1d - a5be - fe9325d2961b";
+                    string userId = "587d9ff9-9279-419e-b093-813027fd1bf0";
 
                     // Display userId in the console
                     Console.WriteLine($"The LOGGED IN userID is {userId}");
@@ -93,7 +93,7 @@ namespace MauiApp1.NewFolder1
                 }
                 else
                 {
-                    Console.WriteLine($"Failed to register user. Status code: {response.StatusCode}");
+                    Console.WriteLine($"Failed to login user. Status code: {response.StatusCode}");
                     // Display an error message if request fails
                     await Application.Current.MainPage.DisplayAlert("Error", "Failed to register user.", "OK");
                 }*/

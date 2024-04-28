@@ -22,8 +22,8 @@ namespace MauiApp1.NewFolder1
         public EachFlashcardSetViewModel(Set selectedSet)
         {
             SelectedSet = selectedSet;
-            Title = selectedSet.title;
-            Flashcards = selectedSet.flashcards;
+            Title = selectedSet.Title;
+            Flashcards = selectedSet.Flashcards;
         }
 
         public string Title { get; private set; }

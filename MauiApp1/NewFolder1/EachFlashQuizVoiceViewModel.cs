@@ -51,8 +51,8 @@ namespace MauiApp1.NewFolder1
 
 
 
-            Title = selectedSet.title;
-            Flashcards = selectedSet.flashcards;
+            Title = selectedSet.Title;
+            Flashcards = selectedSet.Flashcards;
             //SpeakQuestions();
             //_ = StartListening();
 
@@ -80,9 +80,9 @@ namespace MauiApp1.NewFolder1
         {
             foreach (var flashcard in Flashcards)
             {
-                if (!string.IsNullOrEmpty(flashcard.question))
+                if (!string.IsNullOrEmpty(flashcard.Question))
                 {
-                    await TextToSpeech.SpeakAsync(flashcard.question);
+                    await TextToSpeech.SpeakAsync(flashcard.Question);
                 }
             }
         }

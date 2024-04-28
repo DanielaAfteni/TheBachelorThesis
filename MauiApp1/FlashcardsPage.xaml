@@ -74,7 +74,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <!-- Set title -->
-                                    <Label Text="{Binding title}" 
+                                    <Label Text="{Binding Title}" 
                                         Grid.Column="0"
                                         FontFamily="Inter"
                                         FontSize="16"

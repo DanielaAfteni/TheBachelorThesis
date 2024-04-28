@@ -32,8 +32,8 @@ namespace MauiApp1.NewFolder1
         public EachFlashLearnViewModel(Set selectedSet)
         {
             SelectedSet = selectedSet;
-            Title = selectedSet.title;
-            Flashcards = selectedSet.flashcards;
+            Title = selectedSet.Title;
+            Flashcards = selectedSet.Flashcards;
         }
 
 
@@ -77,14 +77,14 @@ namespace MauiApp1.NewFolder1
                 // Navigate to the voice page
                 await Shell.Current.Navigation.PushAsync(new EachFlashLearnVoicePage(selectedSet));
                 Console.WriteLine($"EachFlashQuizVoicePage SELECTED");
-                Console.WriteLine($"{selectedSet.title}");
+                Console.WriteLine($"{selectedSet.Title}");
             }
             else
             {
                 // Navigate to the text page
                 await Shell.Current.Navigation.PushAsync(new EachFlashLearnTextPage(selectedSet));
                 Console.WriteLine($"EachFlashQuizTextPage SELECTED");
-                Console.WriteLine($"{selectedSet.title}");
+                Console.WriteLine($"{selectedSet.Title}");
             }
         }
 

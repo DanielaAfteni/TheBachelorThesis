@@ -42,7 +42,10 @@ namespace MauiApp1.NewFolder1
         private async void ExecuteGoToMainPage()
         {
             // Navigate to the main page
-            await Shell.Current.GoToAsync($"{nameof(FlashcardsPage)}");
+            //await Shell.Current.GoToAsync($"{nameof(FlashcardsPage)}");
+            //await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_userId));
+            //await Shell.Current.GoToAsync($"{nameof(FlashcardsPage)}?userId={_userId}");
+            await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_userId));
         }
 
         private async void ExecuteGoToSchedulePage()
