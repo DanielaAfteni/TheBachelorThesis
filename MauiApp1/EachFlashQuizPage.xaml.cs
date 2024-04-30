@@ -4,9 +4,9 @@ namespace MauiApp1;
 
 public partial class EachFlashQuizPage : ContentPage
 {
-	public EachFlashQuizPage(Set selectedSet)
+	public EachFlashQuizPage(string userId, Set selectedSet)
 	{
 		InitializeComponent();
-        BindingContext = new EachFlashQuizViewModel(selectedSet);
+        BindingContext = new EachFlashQuizViewModel(userId, selectedSet);
     }
 }

@@ -2,11 +2,69 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.EditTitleSetPage"
-             Title="EditTitleSetPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="EditTitleSetPage"
+             Shell.NavBarIsVisible="False">
+    <ScrollView>
+        <VerticalStackLayout Padding="30,0" Spacing="25">
+            <Grid Padding="30,0" Margin="0,30,0,0">
+                <!-- Page Header -->
+                <StackLayout Grid.Column="0" Orientation="Horizontal">
+                    <!-- Back -->
+                    <Label Text="Back"
+                VerticalOptions="Center"
+                FontFamily="Inter"
+                FontSize="16"
+                TextDecorations="Underline"
+                TextColor="#5DB075">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <!-- Flashcard -->
+                    <Label Text="Edit title" 
+                HorizontalOptions="CenterAndExpand"
+                FontFamily="Inter"
+                FontSize="30"
+                FontAttributes="Bold"
+                TextColor="#000000" />
+                    <!-- Log Out -->
+                    <Label Text="Log Out" 
+                VerticalOptions="Center"
+                FontFamily="Inter"
+                FontSize="16"
+                TextDecorations="Underline"
+                TextColor="#5DB075">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LogOutCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                </StackLayout>
+            </Grid>
+            <Frame Grid.Column="0" Margin="0,20,0,0" BackgroundColor="#5DB075">
+                <Grid ColumnSpacing="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- First Column: newQuestion and newAnswer Entry -->
+                    <StackLayout Grid.Column="0" Spacing="10">
+
+                        <Entry Placeholder="New title" Text="{Binding NewTitle}" />
+                    </StackLayout>
+
+                    <!-- Second Column: Add Button -->
+                    <Button Grid.Column="1" Text="+" Command="{Binding EditTitleCommand}" HeightRequest="50" WidthRequest="50" FontSize="20" BackgroundColor="Green"/>
+                </Grid>
+            </Frame>
+            <StackLayout Spacing="10">
+                <Label Text="Previous title:" FontSize="16" TextColor="#000000" />
+                <Label Text="{Binding OldTitle}" FontSize="20" FontAttributes="Bold" TextColor="#000000" />
+                <Label Text="Set title:" FontSize="16" TextColor="#000000" />
+                <Label Text="{Binding SetTitle}" FontSize="20" FontAttributes="Bold" TextColor="#000000" />
+            </StackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

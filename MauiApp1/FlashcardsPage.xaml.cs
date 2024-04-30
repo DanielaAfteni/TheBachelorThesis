@@ -12,10 +12,13 @@ namespace MauiApp1
 {
     public partial class FlashcardsPage : ContentPage
     {
+        private string _userId;
         public FlashcardsPage(string userId)
         {
             InitializeComponent(); // Make sure InitializeComponent() method is generated
+            _userId = userId;
             BindingContext = new FlashcardsViewModel(userId);
+
         }
 
         private async void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -23,7 +26,8 @@ namespace MauiApp1
             if (e.CurrentSelection.FirstOrDefault() is Set selectedSet)
             {
                 // Navigate to the EachFlashcardSet page, passing the selected set
-                await Navigation.PushAsync(new EachFlashcardSetPage(selectedSet));
+                //await Navigation.PushAsync(new EachFlashcardSetPage(selectedSet));
+                await Navigation.PushAsync(new EachFlashcardSetPage(_userId, selectedSet));
             }
 
             // Clear the selection

@@ -581,11 +581,11 @@ namespace MauiApp1.NewFolder1
         {
             // Navigate to the EachFlashcardSet page and pass the selected set
             Console.WriteLine($"SELECTED {selectedSet.Title}");
-            await Shell.Current.Navigation.PushAsync(new EachFlashcardSetPage(selectedSet));
+            await Shell.Current.Navigation.PushAsync(new EachFlashcardSetPage(_userId, selectedSet));
             
         }
 
-        private void ExecuteEditSet(Set? selectedSet)
+        private async void ExecuteEditSet(Set? selectedSet)
         {
             // Check for nullability before performing actions on selectedSet
             if (selectedSet != null)
@@ -597,32 +597,45 @@ namespace MauiApp1.NewFolder1
 
                 // You can add your logic here to navigate to the editing page
                 // For now, let's just update the title of the selected set
-                string old_title = selectedSet.Title;
-                selectedSet.Title = "Updated Set Title"; // Update the title as per your requirements
-                Console.WriteLine($"The title of the set \"{old_title}\" CHANGED \"{selectedSet.Title}\".");
+                //string old_title = selectedSet.Title;
+                //selectedSet.Title = "Updated Set Title"; // Update the title as per your requirements
+                //Console.WriteLine($"The title of the set \"{old_title}\" CHANGED \"{selectedSet.Title}\".");
+                await Shell.Current.Navigation.PushAsync(new EditTitleSetPage(_userId, selectedSet));
             }
         }
 
-        private void ExecuteDeleteSet(Set? selectedSet)
+        private async void ExecuteDeleteSet(Set? selectedSet)
         {
             // Check for nullability before performing actions on selectedSet
             if (selectedSet != null)
             {
-                // Perform edit action here
                 Console.WriteLine($"Deleting set: {selectedSet.Title}");
-                // Navigate to the editing page
-                // Example: await Shell.Current.Navigation.PushAsync(new EditingPage(selectedSet));
+                
+                using var client = new HttpClient();
+                var response = await client.DeleteAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets/{_userId}/{selectedSet.Id}");
 
-                // You can add your logic here to navigate to the editing page
-                // For now, let's just update the title of the selected set
-                Console.WriteLine($"DELETED \"{selectedSet.Title}\".");
+                // Check if the request was successful
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine($"DELETED \"{selectedSet.Title}\".");
+                    await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_userId));
+
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to delete set. Status code: {response.StatusCode}");
+                    // Display an error message if request fails
+                    await Application.Current.MainPage.DisplayAlert("Error", "Failed to delete set.", "OK");
+                }
             }
         }
 
         private async void ExecuteGoBack()
         {
             // Navigate back to the previous page
-            await Shell.Current.Navigation.PopAsync();
+            //await Shell.Current.Navigation.PopAsync();
+            //await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+            await Shell.Current.Navigation.PushAsync(new HomePage(_userId));
         }
 
         private async void ExecuteLogOut()

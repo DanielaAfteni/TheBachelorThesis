@@ -40,6 +40,9 @@ namespace MauiApp1
             builder.Services.AddTransient<AddSetsPage>();
             builder.Services.AddTransient<AddSetsViewModel>();
 
+            builder.Services.AddTransient<EditTitleSetPage>();
+            builder.Services.AddTransient<EditTitleSetViewModel>();
+
             builder.Services.AddTransient<EachFlashcardSetPage>();
             builder.Services.AddTransient<EachFlashcardSetViewModel>();
 

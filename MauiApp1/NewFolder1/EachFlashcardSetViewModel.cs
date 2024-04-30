@@ -12,6 +12,7 @@ namespace MauiApp1.NewFolder1
     public partial class EachFlashcardSetViewModel : ObservableRecipient
     {
         private Set _selectedSet;
+        private string _userId;
 
         public Set SelectedSet
         {
@@ -19,8 +20,9 @@ namespace MauiApp1.NewFolder1
             set => SetProperty(ref _selectedSet, value);
         }
 
-        public EachFlashcardSetViewModel(Set selectedSet)
+        public EachFlashcardSetViewModel(string userId, Set selectedSet)
         {
+            _userId = userId;
             SelectedSet = selectedSet;
             Title = selectedSet.Title;
             Flashcards = selectedSet.Flashcards;
@@ -66,7 +68,8 @@ namespace MauiApp1.NewFolder1
                 // Handle the case where selectedSet is null
                 return;
             }
-            await Shell.Current.Navigation.PushAsync(new EachFlashQuizPage(selectedSet));
+            //await Shell.Current.Navigation.PushAsync(new EachFlashQuizPage(selectedSet));
+            await Shell.Current.Navigation.PushAsync(new EachFlashQuizPage(_userId, selectedSet));
             //await Shell.Current.GoToAsync($"{nameof(EachFlashQuizPage)}");
             Console.WriteLine($"QUIZ selected");
             // Implement your logic for starting the quiz mode
@@ -80,7 +83,8 @@ namespace MauiApp1.NewFolder1
                 return;
             }
             //await Shell.Current.GoToAsync($"{nameof(EachFlashLearnPage)}");
-            await Shell.Current.Navigation.PushAsync(new EachFlashLearnPage(selectedSet));
+            //await Shell.Current.Navigation.PushAsync(new EachFlashLearnPage(selectedSet));
+            await Shell.Current.Navigation.PushAsync(new EachFlashLearnPage(_userId, selectedSet));
 
             Console.WriteLine($"LEARN selected");
             // Implement your logic for starting the learn mode

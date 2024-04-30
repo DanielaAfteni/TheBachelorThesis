@@ -9,6 +9,14 @@ namespace MauiApp1.NewFolder1
 {
     public partial class EachFlashQuizTextViewModel : ObservableRecipient
     {
+        private string _userId;
+        private Set _selectedSet;
+
+        public Set SelectedSet
+        {
+            get => _selectedSet;
+            set => SetProperty(ref _selectedSet, value);
+        }
         public string Title { get; private set; }
         public List<Flashcard> Flashcards { get; private set; }
         public List<string> UserAnswers { get; } = new List<string>(); // List to store user's answers
@@ -17,17 +25,21 @@ namespace MauiApp1.NewFolder1
 
         private RelayCommand _goBackCommand;
         private RelayCommand _logOutCommand;
-        private RelayCommand _checkAnswersCommand;
+        private RelayCommand<Set> _checkAnswersCommand;
 
-        public ICommand GoBackCommand => _goBackCommand ??= new RelayCommand(ExecuteGoBack);
-        public ICommand LogOutCommand => _logOutCommand ??= new RelayCommand(ExecuteLogOut);
-        public ICommand CheckAnswersCommand => _checkAnswersCommand ??= new RelayCommand(ExecuteCheckAnswers);
-
-        public EachFlashQuizTextViewModel(Set selectedSet)
+        public EachFlashQuizTextViewModel(string userId, Set selectedSet)
         {
+            _userId = userId;
+            SelectedSet = selectedSet;
             Title = selectedSet.Title;
             Flashcards = selectedSet.Flashcards;
         }
+
+        public ICommand GoBackCommand => _goBackCommand ??= new RelayCommand(ExecuteGoBack);
+        public ICommand LogOutCommand => _logOutCommand ??= new RelayCommand(ExecuteLogOut);
+        public ICommand CheckAnswersCommand => _checkAnswersCommand ??= new RelayCommand<Set>(ExecuteCheckAnswers);
+
+        
 
         private async void ExecuteGoBack()
         {
@@ -41,7 +53,7 @@ namespace MauiApp1.NewFolder1
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
 
-        private async void ExecuteCheckAnswers()
+        private async void ExecuteCheckAnswers(Set? selectedSet)
         {
             int correctCount = 0;
             for (int i = 0; i < Flashcards.Count; i++)
@@ -56,7 +68,8 @@ namespace MauiApp1.NewFolder1
             int totalQuestions = Flashcards.Count;
             Console.WriteLine($"Total correct answers: {correctCount}/{totalQuestions}");
             //await Shell.Current.GoToAsync($"//{nameof(ScorePage)}?correctCount={correctCount}&totalQuestions={totalQuestions}");
-            await Shell.Current.Navigation.PushAsync(new ScorePage(correctCount, totalQuestions));
+            //await Shell.Current.Navigation.PushAsync(new ScorePage(correctCount, totalQuestions));
+            await Shell.Current.Navigation.PushAsync(new ScorePage(_userId, correctCount, totalQuestions));
         }
 
         public void UpdateUserAnswer(int index, string answer)

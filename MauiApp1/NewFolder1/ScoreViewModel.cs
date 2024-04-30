@@ -11,10 +11,14 @@ namespace MauiApp1.NewFolder1
 {
     public partial class ScoreViewModel : ObservableRecipient
     {
+        private string _userId;
         private RelayCommand _goBackCommand;
         private RelayCommand _logOutCommand;
         private RelayCommand _goToTryAgainCommand;
         private RelayCommand _goToHomePageCommand;
+
+
+
 
 
         public ICommand GoBackCommand => _goBackCommand ??= new RelayCommand(ExecuteGoBack);
@@ -40,12 +44,14 @@ namespace MauiApp1.NewFolder1
         {
             // Navigate back to the previous page
             await Shell.Current.Navigation.PopAsync();
+            //await Shell.Current.Navigation.PushAsync(new EachFlashQuizTextPage(_userId, selectedSet));
         }
 
         private async void ExecuteGoHomePage()
         {
+            await Shell.Current.Navigation.PushAsync(new HomePage(_userId));
             // Navigate to the login page
-            await Shell.Current.GoToAsync($"{nameof(HomePage)}");
+            //await Shell.Current.GoToAsync($"{nameof(HomePage)}");
         }
 
 
@@ -64,8 +70,9 @@ namespace MauiApp1.NewFolder1
             set => SetProperty(ref _frameColor, value);
         }
 
-        public ScoreViewModel(int correctCount, int totalQuestions)
+        public ScoreViewModel(string userId, int correctCount, int totalQuestions)
         {
+            _userId = userId;
             CalculateScore(correctCount, totalQuestions);
         }
 

@@ -11,6 +11,7 @@ namespace MauiApp1.NewFolder1
 {
     public partial class EachFlashLearnVoiceViewModel : ObservableRecipient
     {
+        private string _userId;
         public string Title { get; private set; }
         public List<Flashcard> Flashcards { get; private set; }
 
@@ -20,8 +21,9 @@ namespace MauiApp1.NewFolder1
         public ICommand GoBackCommand => _goBackCommand ??= new RelayCommand(ExecuteGoBack);
         public ICommand LogOutCommand => _logOutCommand ??= new RelayCommand(ExecuteLogOut);
 
-        public EachFlashLearnVoiceViewModel(Set selectedSet)
+        public EachFlashLearnVoiceViewModel(string userId, Set selectedSet)
         {
+            _userId = userId;
             Title = selectedSet.Title;
             Flashcards = selectedSet.Flashcards;
             SpeakQuestions();
