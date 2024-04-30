@@ -35,8 +35,6 @@
                     </Label.GestureRecognizers>
                 </Label>
             </StackLayout>
-
-            <!-- Your other content goes here -->
         </Grid>
 
 

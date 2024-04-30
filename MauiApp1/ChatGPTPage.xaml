@@ -20,7 +20,7 @@
                         </Label.GestureRecognizers>
                     </Label>
                     <!-- Flashcard -->
-                    <Label Text="ChatGPT" 
+                    <Label Text="AI assistence" 
                     HorizontalOptions="CenterAndExpand"
                     FontFamily="Inter"
                     FontSize="30"

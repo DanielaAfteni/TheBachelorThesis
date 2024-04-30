@@ -42,14 +42,16 @@ namespace MauiApp1.NewFolder1
 
         private async void ExecuteGoTryAgain()
         {
+            await Shell.Current.Navigation.PushAsync(new HomePage(_userId));
             // Navigate back to the previous page
-            await Shell.Current.Navigation.PopAsync();
+            //await Shell.Current.Navigation.PopAsync();
             //await Shell.Current.Navigation.PushAsync(new EachFlashQuizTextPage(_userId, selectedSet));
         }
 
         private async void ExecuteGoHomePage()
         {
-            await Shell.Current.Navigation.PushAsync(new HomePage(_userId));
+            //await Shell.Current.Navigation.PushAsync(new HomePage(_userId));
+            await Shell.Current.Navigation.PopAsync();
             // Navigate to the login page
             //await Shell.Current.GoToAsync($"{nameof(HomePage)}");
         }

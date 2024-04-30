@@ -90,7 +90,7 @@
                            Margin="10,0,80,0" />
 
                         <!-- Try Again button -->
-                        <Button Text="Try again"
+                        <Button Text="Return home"
                             Command="{Binding GoToTryAgainCommand}"
                             Grid.Row="1"
                             Margin="0,10,0,10" 
@@ -98,7 +98,7 @@
                             TextColor="White"/>
 
                         <!-- Return Home label -->
-                        <Label Text="Return Home" 
+                        <Label Text="Try again" 
                            VerticalOptions="Center"
                            HorizontalOptions="CenterAndExpand"
                            FontFamily="Inter"
