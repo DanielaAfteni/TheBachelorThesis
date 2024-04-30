@@ -10,7 +10,7 @@
             Spacing="25">
             <Grid Padding="30,0">
                 <!-- Page Header -->
-                <StackLayout Grid.Column="0" Orientation="Horizontal">
+                <StackLayout Grid.Column="0" Orientation="Horizontal" Spacing="10">
                     <!-- Back -->
                     <Label Text="Back"
                         VerticalOptions="Center"
@@ -45,13 +45,57 @@
                 <!-- Your other content goes here -->
             </Grid>
 
-            <!-- Search Bar -->
-            <SearchBar Placeholder="Search for a set..." 
-                       Text="{Binding SearchText, Mode=TwoWay}" 
-                       TextChanged="OnSearchTextChanged" />
+            
+
+            <StackLayout Padding="30,0">
+                <!-- Flashcards Section -->
+                <Frame BackgroundColor="#5DB075"
+                    WidthRequest="320"
+                    HeightRequest="77"
+                    Margin="0,0,0,0"
+                    Padding="20,0">
+                    <!-- Content for Flashcards Section -->
+                    <Grid VerticalOptions="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <!-- Row for Flashcards label -->
+                            <RowDefinition Height="Auto" />
+                            <!-- Row for Click me button -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Flashcards label -->
+                        
+                        <!-- Add margin at the bottom to create spacing -->
+
+                        <Grid Grid.Row="1" ColumnSpacing="20">
+                            <Grid.ColumnDefinitions>
+
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Entry Placeholder="Set title" 
+                               Text="{Binding TitleNewSet}" 
+                               Grid.Row="0"
+                               Grid.Column="0"
+                              />
+                            <!-- Click me button -->
+                            <Button Text="+"
+                                 Command="{Binding GoToAddSetCommand}"
+                                 Grid.Row="0"
+                                 FontSize="20"
+                                 Grid.Column="1"
+                                 TextColor="DarkGreen"
+                                 BackgroundColor="White"
+                                />
+                            <!-- Add margin at the top to create spacing -->
+                        </Grid>
+                    </Grid>
+                </Frame>
+             </StackLayout>
 
 
-            <CollectionView ItemsSource="{Binding Sets}"
+                <CollectionView ItemsSource="{Binding Sets}"
                 SelectionMode="Single"
                 SelectionChanged="CollectionView_SelectionChanged"
                 x:Name="collectionView">

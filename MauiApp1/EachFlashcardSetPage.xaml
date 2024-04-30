@@ -7,16 +7,16 @@
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
-            <Grid Padding="30,0">
+            <Grid >
                 <!-- Page Header -->
-                <StackLayout Grid.Column="0" Orientation="Horizontal">
+                <StackLayout Grid.Column="0" Orientation="Horizontal" Spacing="10">
                     <!-- Back -->
                     <Label Text="Back"
-                    VerticalOptions="Center"
-                    FontFamily="Inter"
-                    FontSize="16"
-                    TextDecorations="Underline"
-                    TextColor="#5DB075">
+                        VerticalOptions="Center"
+                        FontFamily="Inter"
+                        FontSize="16"
+                        TextDecorations="Underline"
+                        TextColor="#5DB075">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                         </Label.GestureRecognizers>
@@ -25,9 +25,11 @@
                     <Label Text="{Binding Title}" 
                         HorizontalOptions="CenterAndExpand"
                         FontFamily="Inter"
-                        FontSize="30"
+                        FontSize="20"
                         FontAttributes="Bold"
-                        TextColor="#000000" />
+                        TextColor="#000000" 
+                        
+                        />
                     <!-- Log Out -->
                     <Label Text="Log Out" 
                         VerticalOptions="Center"
@@ -123,25 +125,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
-            <StackLayout>
-                <!-- Display the title of the set -->
-                <Label Text="{Binding Title}" />
-
-                <!-- Display each flashcard in a CollectionView -->
-                <CollectionView ItemsSource="{Binding Flashcards}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <!-- Display question and answer of each flashcard -->
-                            <StackLayout>
-                                <Label Text="{Binding Question}" />
-                                <Label Text="{Binding Answer}" />
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </StackLayout>
-
         </VerticalStackLayout>
     </ScrollView>
 

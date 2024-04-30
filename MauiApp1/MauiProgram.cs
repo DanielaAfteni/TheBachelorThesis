@@ -34,8 +34,11 @@ namespace MauiApp1
             builder.Services.AddSingleton<HomePage>();
             builder.Services.AddSingleton<HomeViewModel>();
 
-            builder.Services.AddSingleton<FlashcardsPage>();
-            builder.Services.AddSingleton<FlashcardsViewModel>();
+            builder.Services.AddTransient<FlashcardsPage>();
+            builder.Services.AddTransient<FlashcardsViewModel>();
+
+            builder.Services.AddTransient<AddSetsPage>();
+            builder.Services.AddTransient<AddSetsViewModel>();
 
             builder.Services.AddTransient<EachFlashcardSetPage>();
             builder.Services.AddTransient<EachFlashcardSetViewModel>();

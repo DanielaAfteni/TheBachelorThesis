@@ -19,6 +19,8 @@ namespace MauiApp1
 
 
             Routing.RegisterRoute(nameof(FlashcardsPage), typeof(FlashcardsPage));
+            Routing.RegisterRoute(nameof(AddSetsPage), typeof(AddSetsPage));
+
             Routing.RegisterRoute(nameof(PersonalCabinetPage), typeof(PersonalCabinetPage));
 
             Routing.RegisterRoute(nameof(EachFlashcardSetPage), typeof(EachFlashcardSetPage));

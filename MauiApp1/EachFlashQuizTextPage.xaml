@@ -3,15 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:MauiApp1.NewFolder1"
              x:Class="MauiApp1.EachFlashQuizTextPage"
-             Title="EachFlashQuizTextPage">
-
-    <ScrollView>
+             Title="EachFlashQuizTextPage"
+             Shell.NavBarIsVisible="False">
+    <ScrollView Margin="0,30,0,0">
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
-            <Grid Padding="30,0">
+            <Grid >
                 <!-- Page Header -->
-                <StackLayout Grid.Column="0" Orientation="Horizontal">
+                <StackLayout Grid.Column="0" Orientation="Horizontal" Spacing="10">
                     <!-- Back -->
                     <Label Text="Back"
                         VerticalOptions="Center"
@@ -27,7 +27,7 @@
                     <Label Text="{Binding Title}" 
                         HorizontalOptions="CenterAndExpand"
                         FontFamily="Inter"
-                        FontSize="30"
+                        FontSize="20"
                         FontAttributes="Bold"
                         TextColor="#000000" />
                     <!-- Log Out -->
@@ -53,21 +53,31 @@
                 </Grid.RowDefinitions>
 
                 <!-- Header Label -->
-                <Label Text="Questions"
-                    Grid.Row="0"
-                    HorizontalOptions="Center"
-                    FontFamily="Inter"
-                    FontSize="24"
-                    FontAttributes="Bold"
-                    TextColor="#000000" />
+                <Frame BackgroundColor="#5DB075"
+                    WidthRequest="200"
+                    HeightRequest="75">
+                    <Label Text="Questions"
+                        Grid.Row="0"
+                        HorizontalOptions="Center"
+                        FontFamily="Inter"
+                        FontSize="22"
+                        FontAttributes="Bold"
+                        TextColor="#000000" 
+                        VerticalOptions="Center"/>
+                </Frame>
             </Grid>
 
             <!-- Bind to a collection of questions -->
-            <CollectionView ItemsSource="{Binding Flashcards}">
+            <CollectionView Grid.Row="1"
+                ItemsSource="{Binding Flashcards}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Padding="30,0">
-                            <Frame BackgroundColor="#E5E5E5" WidthRequest="320" HeightRequest="175" Margin="0,0,0,20" Padding="30,0">
+                        <StackLayout Padding="30,10" BackgroundColor="#5DB075">
+                            <Frame BackgroundColor="#E5E5E5" 
+                                   WidthRequest="310" 
+                                   HeightRequest="175" 
+                                   Margin="0,0,0,0" 
+                                   Padding="30,0">
                                 <Grid VerticalOptions="Center">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -98,26 +108,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
-
-            <StackLayout>
-                <!-- Display the title of the set -->
-                <Label Text="{Binding Title}" />
-
-                <!-- Display each flashcard in a CollectionView -->
-                <CollectionView ItemsSource="{Binding Flashcards}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <!-- Display question and answer of each flashcard -->
-                            <StackLayout>
-                                <Label Text="{Binding Question}" />
-                                <Label Text="{Binding Answer}" />
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </StackLayout>
-
             <Button Text="Check Answers"
                     Command="{Binding CheckAnswersCommand}"
                     FontFamily="Inter"

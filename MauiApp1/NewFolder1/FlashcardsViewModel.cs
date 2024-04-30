@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Newtonsoft.Json.Linq;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 namespace MauiApp1.NewFolder1
 {
@@ -34,13 +35,23 @@ namespace MauiApp1.NewFolder1
             set => SetProperty(ref _filteredSets, value);
         }
 
+        private string _titleNewSet;
+        private RelayCommand _goToAddSetCommand;
         private RelayCommand _goBackCommand;
         private RelayCommand _logOutCommand;
         private RelayCommand<Set> _editSetCommand = null!;
         private RelayCommand<Set> _deleteSetCommand = null!;
 
+        public string TitleNewSet
+        {
+            get => _titleNewSet;
+            set => SetProperty(ref _titleNewSet, value);
+        }
+
         public ICommand GoBackCommand => _goBackCommand ??= new RelayCommand(ExecuteGoBack);
         public ICommand LogOutCommand => _logOutCommand ??= new RelayCommand(ExecuteLogOut);
+
+        public ICommand GoToAddSetCommand => _goToAddSetCommand ??= new RelayCommand(ExecuteGoToAddSetCommand);
 
         public ICommand EditSetCommand => _editSetCommand ??= new RelayCommand<Set>(ExecuteEditSet);
 
@@ -115,7 +126,7 @@ namespace MauiApp1.NewFolder1
 
 
             // Fetch sets data from the API
-            var setsResponse = _httpClient.GetAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets/{_userId}?pageNumber=1&pageSize=4").Result; 
+            var setsResponse = _httpClient.GetAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets/{_userId}?pageSize=100&pageNumber=1").Result; 
 
             // Inside the LoadSets method
             if (setsResponse.IsSuccessStatusCode)
@@ -141,7 +152,7 @@ namespace MauiApp1.NewFolder1
                         Console.WriteLine($"Fetching flashcards for set with Id: {setId} and Title: {setTitle}");
 
                         // Fetch flashcards data for the current set
-                        var flashcardsResponse = _httpClient.GetAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets/flash-cards/{_userId}/{setId}?pageNumber=1&pageSize=4").Result;
+                        var flashcardsResponse = _httpClient.GetAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets/flash-cards/{_userId}/{setId}?pageSize=100&pageNumber=1").Result;
 
                         Console.WriteLine($"Fetch response for set with Id: {setId} and Title: {setTitle}: StatusCode: {flashcardsResponse.StatusCode}, ReasonPhrase: {flashcardsResponse.ReasonPhrase}, Version: {flashcardsResponse.Version}");
 
@@ -235,10 +246,12 @@ namespace MauiApp1.NewFolder1
             {
                 foreach (var set in Sets)
                 {
+                    Console.WriteLine($"Set Id: {set.Id}");
                     Console.WriteLine($"Set Title: {set.Title}");
                 }
             }
         }
+
 
         /*private async void LoadSets()
         {
@@ -396,6 +409,56 @@ namespace MauiApp1.NewFolder1
                 }
             }
         }*/
+
+        private async void ExecuteGoToAddSetCommand()
+        {
+            bool isValid = ValidateTitle();
+
+            if(isValid)
+            {
+                var payload = new
+                {
+                    title = TitleNewSet,
+                    userId = _userId
+                };
+                Console.WriteLine($"title: {TitleNewSet}");
+                Console.WriteLine($"userId: {_userId}");
+                var jsonPayload = JsonConvert.SerializeObject(payload);
+
+                // Send POST request to the API
+                using var client = new HttpClient();
+                var response = await client.PostAsync("https://flash-cards-api.azurewebsites.net/api/flash-card-sets",
+                                                       new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
+                if (response.IsSuccessStatusCode)
+                {
+                    // Read and parse the response
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var responseData = JsonConvert.DeserializeObject<dynamic>(responseContent);
+
+                    // Extract the userId from the response
+                    string setId = responseData.id;
+                    string setTitle = responseData.title;
+
+                    // Display userId in the console
+                    Console.WriteLine($"The Set ID is {setId}");
+                    Console.WriteLine($"The Set Title is {setTitle}");
+                    await Shell.Current.Navigation.PushAsync(new AddSetsPage(_userId, setId));
+                    //await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_userId));
+                    //await Shell.Current.GoToAsync($"{nameof(AddSetsPage)}");
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to add set. Status code: {response.StatusCode}");
+                    // Display an error message if request fails
+                    await Application.Current.MainPage.DisplayAlert("Error", "Failed to add set.", "OK");
+                }
+            }
+        }
+
+        private bool ValidateTitle()
+        {
+            return !string.IsNullOrEmpty(TitleNewSet);
+        }
 
         private async Task LoadSets()
         {

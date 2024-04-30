@@ -5,108 +5,114 @@
              Title="ScorePage"
              BackgroundColor="{Binding FrameColor}"
              Shell.NavBarIsVisible="False">
-    <VerticalStackLayout Padding="30,0" Spacing="25">
-        <Grid Padding="30,0" Margin="0,30,0,0">
-            <!-- Page Header -->
-            <StackLayout Grid.Column="0" Orientation="Horizontal">
-                <!-- Back -->
-                <Label Text="Back"
-                    VerticalOptions="Center"
-                    FontFamily="Inter"
-                    FontSize="16"
-                    TextDecorations="Underline"
-                    TextColor="White">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoBackCommand}" />
-                    </Label.GestureRecognizers>
-                </Label>
-                <!-- Flashcard -->
-                <Label Text="Score" 
-                    HorizontalOptions="CenterAndExpand"
-                    FontFamily="Inter"
-                    FontSize="30"
-                    FontAttributes="Bold"
-                    TextColor="#000000" />
-                <!-- Log Out -->
-                <Label Text="Log Out" 
-                    VerticalOptions="Center"
-                    FontFamily="Inter"
-                    FontSize="16"
-                    TextDecorations="Underline"
-                    TextColor="White">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding LogOutCommand}"/>
-                    </Label.GestureRecognizers>
-                </Label>
-            </StackLayout>
-        </Grid>
-
-        
-
-        <StackLayout Padding="30,0">
-            <!-- Flashcards Section -->
-            <Frame BorderColor="Black" 
-           CornerRadius="10"
-           WidthRequest="343"
-           HeightRequest="225"
-           Margin="0,0,0,60"
-           Padding="30,0"
-           TranslationY="115"
-           BackgroundColor="White">
-                <!-- Content for Flashcards Section -->
-                <Grid VerticalOptions="Center">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <!-- Row for Score -->
-                        <RowDefinition Height="Auto" />
-                        <!-- Row for Try Again button -->
-                        <RowDefinition Height="Auto" />
-                        <!-- Row for Return Home label -->
-                    </Grid.RowDefinitions>
-
-                    <!-- Score label and ScoreText -->
-                    <Label Text="Score:"
-                   HorizontalOptions="Start"
-                   FontFamily="Inter"
-                   FontSize="30"
-                   FontAttributes="Bold"
-                   VerticalOptions="Center"
-                   TextColor="#000000"
-                   Grid.Row="0"
-                   Margin="60,0,0,0" />
-                    <Label Text="{Binding ScoreText}"
-                   HorizontalOptions="End"
-                   FontFamily="Inter"
-                   FontSize="30"
-                   FontAttributes="Bold"
-                   VerticalOptions="Center"
-                   TextColor="#000000"
-                   Grid.Row="0"
-                   Margin="10,0,80,0" />
-
-                    <!-- Try Again button -->
-                    <Button Text="Try again"
-                    Command="{Binding GoToTryAgainCommand}"
-                    Grid.Row="1"
-                    Margin="0,10,0,10" 
-                    BackgroundColor="{Binding FrameColor}"
-                    TextColor="White"/>
-
-                    <!-- Return Home label -->
-                    <Label Text="Return Home" 
-                       VerticalOptions="Center"
-                       HorizontalOptions="CenterAndExpand"
-                       FontFamily="Inter"
-                       FontSize="16"
-                       Grid.Row="2"
-                       TextDecorations="Underline"
-                       TextColor="Black">
+    <ScrollView Margin="0,30,0,0">
+        <VerticalStackLayout 
+            Padding="50, 0" 
+            Spacing="25">
+            <Grid >
+                <!-- Page Header -->
+                <StackLayout Grid.Column="0" Orientation="Horizontal" Spacing="10">
+                    <!-- Back -->
+                    <Label Text="Back"
+                        VerticalOptions="Center"
+                        FontFamily="Inter"
+                        FontSize="16"
+                        TextDecorations="Underline"
+                        TextColor="White">
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding GoToHomePageCommand}"/>
+                            <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                         </Label.GestureRecognizers>
                     </Label>
-                </Grid>
-            </Frame>
-        </StackLayout>
-    </VerticalStackLayout>
+                    <!-- Flashcard -->
+                    <Label Text="Score" 
+                        HorizontalOptions="FillAndExpand"
+                        FontFamily="Inter"
+                        FontSize="30"
+                        FontAttributes="Bold"
+                        TextColor="#000000" 
+                        HorizontalTextAlignment="Center"
+                           Margin="10,0,0,0"/>
+                    <!-- Log Out -->
+                    <Label Text="Log Out" 
+                        VerticalOptions="Center"
+                        FontFamily="Inter"
+                        FontSize="16"
+                        TextDecorations="Underline"
+                        TextColor="White">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LogOutCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+            </Grid>
+
+
+
+            <StackLayout Padding="30,0">
+                <!-- Flashcards Section -->
+                <Frame BorderColor="Black" 
+                   CornerRadius="10"
+                   WidthRequest="343"
+                   HeightRequest="225"
+                   Margin="0,0,0,60"
+                   Padding="30,0"
+                   TranslationY="155"
+                   BackgroundColor="White">
+                    <!-- Content for Flashcards Section -->
+                    <Grid VerticalOptions="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <!-- Row for Score -->
+                            <RowDefinition Height="Auto" />
+                            <!-- Row for Try Again button -->
+                            <RowDefinition Height="Auto" />
+                            <!-- Row for Return Home label -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Score label and ScoreText -->
+                        <Label Text="Score:"
+                           HorizontalOptions="Start"
+                           FontFamily="Inter"
+                           FontSize="30"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           TextColor="#000000"
+                           Grid.Row="0"
+                           Margin="60,0,0,0" />
+                        <Label Text="{Binding ScoreText}"
+                           HorizontalOptions="End"
+                           FontFamily="Inter"
+                           FontSize="30"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           TextColor="#000000"
+                           Grid.Row="0"
+                           Margin="10,0,80,0" />
+
+                        <!-- Try Again button -->
+                        <Button Text="Try again"
+                            Command="{Binding GoToTryAgainCommand}"
+                            Grid.Row="1"
+                            Margin="0,10,0,10" 
+                            BackgroundColor="{Binding FrameColor}"
+                            TextColor="White"/>
+
+                        <!-- Return Home label -->
+                        <Label Text="Return Home" 
+                           VerticalOptions="Center"
+                           HorizontalOptions="CenterAndExpand"
+                           FontFamily="Inter"
+                           FontSize="16"
+                           Grid.Row="2"
+                           TextDecorations="Underline"
+                           TextColor="Black">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding GoToHomePageCommand}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
+                    </Grid>
+                </Frame>
+            </StackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

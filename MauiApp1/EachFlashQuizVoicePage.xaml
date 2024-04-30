@@ -98,24 +98,6 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <StackLayout>
-                <!-- Display the title of the set -->
-                <Label Text="{Binding Title}" />
-
-                <!-- Display each flashcard in a CollectionView -->
-                <CollectionView ItemsSource="{Binding Flashcards}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <!-- Display question and answer of each flashcard -->
-                            <StackLayout>
-                                <Label Text="{Binding Question}" />
-                                <Label Text="{Binding Answer}" />
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </StackLayout>
-
             <Label Text="{Binding RecognitionText}"
                 HorizontalOptions="Center"
                 FontFamily="Inter"
