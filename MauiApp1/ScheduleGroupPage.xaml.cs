@@ -4,9 +4,9 @@ namespace MauiApp1;
 
 public partial class ScheduleGroupPage : ContentPage
 {
-	public ScheduleGroupPage(string group)
+	public ScheduleGroupPage(string token,string group)
 	{
 		InitializeComponent();
-        BindingContext = new ScheduleGroupViewModel(group);
+        BindingContext = new ScheduleGroupViewModel(token,group);
     }
 }

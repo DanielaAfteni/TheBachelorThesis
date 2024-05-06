@@ -14,6 +14,8 @@ namespace MauiApp1.NewFolder1
 {
     public partial class ScheduleDayViewModel : ObservableRecipient
     {
+        private string _token;
+
         private RelayCommand _goBackCommand;
         private RelayCommand _logOutCommand;
 
@@ -21,8 +23,9 @@ namespace MauiApp1.NewFolder1
 
         private ObservableCollection<ScheduleItemDay> _scheduleItems;
 
-        public ScheduleDayViewModel(string day)
+        public ScheduleDayViewModel(string token, string day)
         {
+            _token = token;
             _day = day;
             _scheduleItems = new ObservableCollection<ScheduleItemDay>();
             InitializeAsync();
@@ -50,6 +53,7 @@ namespace MauiApp1.NewFolder1
             try
             {
                 var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
                 var response = await client.GetAsync($"https://moodle-api.azurewebsites.net/api/subjects/day/{_day}");
 
                 if (response.IsSuccessStatusCode)

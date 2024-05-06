@@ -41,8 +41,6 @@
                         </Label.GestureRecognizers>
                     </Label>
                 </StackLayout>
-
-                <!-- Your other content goes here -->
             </Grid>
 
             
@@ -64,8 +62,6 @@
                         </Grid.RowDefinitions>
 
                         <!-- Flashcards label -->
-                        
-                        <!-- Add margin at the bottom to create spacing -->
 
                         <Grid Grid.Row="1" ColumnSpacing="20">
                             <Grid.ColumnDefinitions>
@@ -88,7 +84,6 @@
                                  TextColor="DarkGreen"
                                  BackgroundColor="White"
                                 />
-                            <!-- Add margin at the top to create spacing -->
                         </Grid>
                     </Grid>
                 </Frame>

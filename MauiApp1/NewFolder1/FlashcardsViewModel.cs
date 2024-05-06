@@ -61,7 +61,7 @@ namespace MauiApp1.NewFolder1
 
         public Command<Set> NavigateToEachFlashcardSetCommand { get; set; }
 
-        private string _userId;
+        private string _token;
 
         /*public FlashcardsViewModel(string userId)
         {
@@ -117,16 +117,17 @@ namespace MauiApp1.NewFolder1
         private HttpClient _httpClient;
         
 
-        public FlashcardsViewModel(string userId)
+        public FlashcardsViewModel(string token)
         {
-            _userId = userId;
+            _token = token;
             _httpClient = new HttpClient();
 
             Sets = new ObservableCollection<Set>();
 
 
             // Fetch sets data from the API
-            var setsResponse = _httpClient.GetAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets/{_userId}?pageSize=100&pageNumber=1").Result; 
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
+            var setsResponse = _httpClient.GetAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets?pageSize=100&pageNumber=1").Result; 
 
             // Inside the LoadSets method
             if (setsResponse.IsSuccessStatusCode)
@@ -152,7 +153,8 @@ namespace MauiApp1.NewFolder1
                         Console.WriteLine($"Fetching flashcards for set with Id: {setId} and Title: {setTitle}");
 
                         // Fetch flashcards data for the current set
-                        var flashcardsResponse = _httpClient.GetAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets/flash-cards/{_userId}/{setId}?pageSize=100&pageNumber=1").Result;
+                        _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
+                        var flashcardsResponse = _httpClient.GetAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets/flash-cards/{setId}?pageSize=100&pageNumber=1").Result;
 
                         Console.WriteLine($"Fetch response for set with Id: {setId} and Title: {setTitle}: StatusCode: {flashcardsResponse.StatusCode}, ReasonPhrase: {flashcardsResponse.ReasonPhrase}, Version: {flashcardsResponse.Version}");
 
@@ -419,14 +421,15 @@ namespace MauiApp1.NewFolder1
                 var payload = new
                 {
                     title = TitleNewSet,
-                    userId = _userId
+                    userId = _token
                 };
                 Console.WriteLine($"title: {TitleNewSet}");
-                Console.WriteLine($"userId: {_userId}");
+                Console.WriteLine($"userId: {_token}");
                 var jsonPayload = JsonConvert.SerializeObject(payload);
 
                 // Send POST request to the API
                 using var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
                 var response = await client.PostAsync("https://flash-cards-api.azurewebsites.net/api/flash-card-sets",
                                                        new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
                 if (response.IsSuccessStatusCode)
@@ -442,7 +445,7 @@ namespace MauiApp1.NewFolder1
                     // Display userId in the console
                     Console.WriteLine($"The Set ID is {setId}");
                     Console.WriteLine($"The Set Title is {setTitle}");
-                    await Shell.Current.Navigation.PushAsync(new AddSetsPage(_userId, setId));
+                    await Shell.Current.Navigation.PushAsync(new AddSetsPage(_token, setId));
                     //await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_userId));
                     //await Shell.Current.GoToAsync($"{nameof(AddSetsPage)}");
                 }
@@ -460,7 +463,7 @@ namespace MauiApp1.NewFolder1
             return !string.IsNullOrEmpty(TitleNewSet);
         }
 
-        private async Task LoadSets()
+        /*private async Task LoadSets()
         {
             // Fetch sets data from the API
             var setsResponse = await _httpClient.GetAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets/{_userId}?pageNumber=1&pageSize=4");
@@ -572,7 +575,7 @@ namespace MauiApp1.NewFolder1
                     
                 }
             }
-        }
+        }*/
 
 
 
@@ -581,7 +584,7 @@ namespace MauiApp1.NewFolder1
         {
             // Navigate to the EachFlashcardSet page and pass the selected set
             Console.WriteLine($"SELECTED {selectedSet.Title}");
-            await Shell.Current.Navigation.PushAsync(new EachFlashcardSetPage(_userId, selectedSet));
+            await Shell.Current.Navigation.PushAsync(new EachFlashcardSetPage(_token, selectedSet));
             
         }
 
@@ -600,7 +603,7 @@ namespace MauiApp1.NewFolder1
                 //string old_title = selectedSet.Title;
                 //selectedSet.Title = "Updated Set Title"; // Update the title as per your requirements
                 //Console.WriteLine($"The title of the set \"{old_title}\" CHANGED \"{selectedSet.Title}\".");
-                await Shell.Current.Navigation.PushAsync(new EditTitleSetPage(_userId, selectedSet));
+                await Shell.Current.Navigation.PushAsync(new EditTitleSetPage(_token, selectedSet));
             }
         }
 
@@ -612,13 +615,14 @@ namespace MauiApp1.NewFolder1
                 Console.WriteLine($"Deleting set: {selectedSet.Title}");
                 
                 using var client = new HttpClient();
-                var response = await client.DeleteAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets/{_userId}/{selectedSet.Id}");
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
+                var response = await client.DeleteAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets/{selectedSet.Id}");
 
                 // Check if the request was successful
                 if (response.IsSuccessStatusCode)
                 {
                     Console.WriteLine($"DELETED \"{selectedSet.Title}\".");
-                    await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_userId));
+                    await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_token));
 
                 }
                 else
@@ -635,7 +639,7 @@ namespace MauiApp1.NewFolder1
             // Navigate back to the previous page
             //await Shell.Current.Navigation.PopAsync();
             //await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-            await Shell.Current.Navigation.PushAsync(new HomePage(_userId));
+            await Shell.Current.Navigation.PushAsync(new HomePage(_token));
         }
 
         private async void ExecuteLogOut()

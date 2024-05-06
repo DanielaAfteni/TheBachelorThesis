@@ -4,9 +4,9 @@ namespace MauiApp1;
 
 public partial class EachFlashLearnTextPage : ContentPage
 {
-	public EachFlashLearnTextPage(string userId, Set selectedSet)
+	public EachFlashLearnTextPage(string token, Set selectedSet)
 	{
 		InitializeComponent();
-        BindingContext = new EachFlashLearnTextViewModel(userId, selectedSet);
+        BindingContext = new EachFlashLearnTextViewModel(token, selectedSet);
     }
 }

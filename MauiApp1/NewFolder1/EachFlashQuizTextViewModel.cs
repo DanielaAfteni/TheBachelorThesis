@@ -9,7 +9,7 @@ namespace MauiApp1.NewFolder1
 {
     public partial class EachFlashQuizTextViewModel : ObservableRecipient
     {
-        private string _userId;
+        private string _token;
         private Set _selectedSet;
 
         public Set SelectedSet
@@ -27,9 +27,9 @@ namespace MauiApp1.NewFolder1
         private RelayCommand _logOutCommand;
         private RelayCommand<Set> _checkAnswersCommand;
 
-        public EachFlashQuizTextViewModel(string userId, Set selectedSet)
+        public EachFlashQuizTextViewModel(string token, Set selectedSet)
         {
-            _userId = userId;
+            _token = token;
             SelectedSet = selectedSet;
             Title = selectedSet.Title;
             Flashcards = selectedSet.Flashcards;
@@ -69,7 +69,7 @@ namespace MauiApp1.NewFolder1
             Console.WriteLine($"Total correct answers: {correctCount}/{totalQuestions}");
             //await Shell.Current.GoToAsync($"//{nameof(ScorePage)}?correctCount={correctCount}&totalQuestions={totalQuestions}");
             //await Shell.Current.Navigation.PushAsync(new ScorePage(correctCount, totalQuestions));
-            await Shell.Current.Navigation.PushAsync(new ScorePage(_userId, correctCount, totalQuestions));
+            await Shell.Current.Navigation.PushAsync(new ScorePage(_token, correctCount, totalQuestions));
         }
 
         public void UpdateUserAnswer(int index, string answer)

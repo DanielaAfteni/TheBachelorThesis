@@ -12,7 +12,7 @@ namespace MauiApp1.NewFolder1
     public partial class EachFlashcardSetViewModel : ObservableRecipient
     {
         private Set _selectedSet;
-        private string _userId;
+        private string _token;
 
         public Set SelectedSet
         {
@@ -20,9 +20,9 @@ namespace MauiApp1.NewFolder1
             set => SetProperty(ref _selectedSet, value);
         }
 
-        public EachFlashcardSetViewModel(string userId, Set selectedSet)
+        public EachFlashcardSetViewModel(string token, Set selectedSet)
         {
-            _userId = userId;
+            _token = token;
             SelectedSet = selectedSet;
             Title = selectedSet.Title;
             Flashcards = selectedSet.Flashcards;
@@ -33,21 +33,13 @@ namespace MauiApp1.NewFolder1
 
         private RelayCommand _goBackCommand;
         private RelayCommand _logOutCommand;
-        //private RelayCommand _startQuizCommand;
-        //private RelayCommand _startLearnCommand;
         private RelayCommand<Set> _startQuizCommand;
         private RelayCommand<Set> _startLearnCommand;
 
         public ICommand GoBackCommand => _goBackCommand ??= new RelayCommand(ExecuteGoBack);
         public ICommand LogOutCommand => _logOutCommand ??= new RelayCommand(ExecuteLogOut);
-        //public ICommand StartQuizCommand => _startQuizCommand ??= new RelayCommand(ExecuteStartQuiz);
-
         public ICommand StartQuizCommand => _startQuizCommand ??= new RelayCommand<Set>(ExecuteStartQuiz);
-        //public ICommand StartLearnCommand => _startLearnCommand ??= new RelayCommand(ExecuteStartLearn);
-
         public ICommand StartLearnCommand => _startLearnCommand ??= new RelayCommand<Set>(ExecuteStartLearn);
-
-
 
         private async void ExecuteGoBack()
         {
@@ -68,11 +60,8 @@ namespace MauiApp1.NewFolder1
                 // Handle the case where selectedSet is null
                 return;
             }
-            //await Shell.Current.Navigation.PushAsync(new EachFlashQuizPage(selectedSet));
-            await Shell.Current.Navigation.PushAsync(new EachFlashQuizPage(_userId, selectedSet));
-            //await Shell.Current.GoToAsync($"{nameof(EachFlashQuizPage)}");
+            await Shell.Current.Navigation.PushAsync(new EachFlashQuizPage(_token, selectedSet));
             Console.WriteLine($"QUIZ selected");
-            // Implement your logic for starting the quiz mode
         }
 
         private async void ExecuteStartLearn(Set? selectedSet)
@@ -82,12 +71,8 @@ namespace MauiApp1.NewFolder1
                 // Handle the case where selectedSet is null
                 return;
             }
-            //await Shell.Current.GoToAsync($"{nameof(EachFlashLearnPage)}");
-            //await Shell.Current.Navigation.PushAsync(new EachFlashLearnPage(selectedSet));
-            await Shell.Current.Navigation.PushAsync(new EachFlashLearnPage(_userId, selectedSet));
-
+            await Shell.Current.Navigation.PushAsync(new EachFlashLearnPage(_token, selectedSet));
             Console.WriteLine($"LEARN selected");
-            // Implement your logic for starting the learn mode
         }
     }
 }

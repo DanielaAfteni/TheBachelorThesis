@@ -18,7 +18,7 @@ namespace MauiApp1.NewFolder1
     public partial class EachFlashQuizVoiceViewModel : ObservableRecipient
     {
         //public string RecognitionText { get; set; }
-        private string _userId;
+        private string _token;
 
         string RecognitionText = "";
         public Command ListenCommand { get; set; }
@@ -47,10 +47,10 @@ namespace MauiApp1.NewFolder1
 
 
 
-        public EachFlashQuizVoiceViewModel (string userId, Set selectedSet)
+        public EachFlashQuizVoiceViewModel (string token, Set selectedSet)
         {
 
-            _userId = userId;
+            _token = token;
             Title = selectedSet.Title;
             Flashcards = selectedSet.Flashcards;
             //SpeakQuestions();

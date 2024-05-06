@@ -9,9 +9,4 @@ public partial class AddSetsPage : ContentPage
 		InitializeComponent();
         BindingContext = new AddSetsViewModel(userId, setId);
     }
-    /*public AddSetsPage(AddSetsViewModel vm)
-    {
-        InitializeComponent();
-        BindingContext = vm;
-    }*/
 }

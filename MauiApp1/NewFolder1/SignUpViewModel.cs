@@ -212,7 +212,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Newtonsoft.Json;
-//using Org.Apache.Http.Protocol;
 
 namespace MauiApp1.NewFolder1
 {
@@ -267,11 +266,6 @@ namespace MauiApp1.NewFolder1
 
         public ICommand GoToLoginPageCommand => _goToLoginPageCommand ??= new Command(GoToLoginPage);
 
-        //public ICommand SignUpCommand => _signUpCommand ??= new RelayCommand(async () => await SignUp());
-
-        //public ICommand GoToLoginPageCommand => _goToLoginPageCommand ??= new Command(async () => await GoToLoginPage());
-
-
         private async void SignUp()
         {
             // Perform sign-up validation
@@ -293,17 +287,12 @@ namespace MauiApp1.NewFolder1
                 Console.WriteLine($"nickname: {Username}");
 
 
-                /*var userId = "ac92088d - 083c - 4a1d - a5be - fe9325d2961b";
-
-                // Display userId in the console
-                Console.WriteLine($"The userID is {userId}");
-                await Shell.Current.Navigation.PushAsync(new HomePage(userId));*/
                 // Serialize the payload
                 var jsonPayload = JsonConvert.SerializeObject(payload);
 
                 // Send POST request to the API
                 using var client = new HttpClient();
-                var response = await client.PostAsync("https://users-indentity-api.azurewebsites.net/api/User/register",
+                var response = await client.PostAsync("https://users-indentity-api.azurewebsites.net/api/user/register",
                                                        new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
 
                 // Check if the request was successful
@@ -318,7 +307,8 @@ namespace MauiApp1.NewFolder1
 
                     // Display userId in the console
                     Console.WriteLine($"The userID is {userId}");
-                    await Shell.Current.Navigation.PushAsync(new HomePage(userId));
+                    await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                    //await Shell.Current.Navigation.PushAsync(new HomePage(userId));
                 }
                 else
                 {

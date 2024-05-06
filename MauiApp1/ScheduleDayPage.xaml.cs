@@ -4,9 +4,9 @@ namespace MauiApp1;
 
 public partial class ScheduleDayPage : ContentPage
 {
-	public ScheduleDayPage(string day)
+	public ScheduleDayPage(string token, string day)
 	{
 		InitializeComponent();
-        BindingContext = new ScheduleDayViewModel(day);
+        BindingContext = new ScheduleDayViewModel(token, day);
     }
 }

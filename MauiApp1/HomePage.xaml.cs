@@ -4,9 +4,9 @@ namespace MauiApp1;
 
 public partial class HomePage : ContentPage
 {
-    public HomePage(string userId)
+    public HomePage(string token)
     {
         InitializeComponent();
-        BindingContext = new HomeViewModel(userId);
+        BindingContext = new HomeViewModel(token);
     }
 }

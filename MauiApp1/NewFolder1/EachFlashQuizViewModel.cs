@@ -13,7 +13,7 @@ namespace MauiApp1.NewFolder1
 {
     public partial class EachFlashQuizViewModel : ObservableRecipient
     {
-        private string _userId;
+        private string _token;
         private Set _selectedSet;
 
         public Set SelectedSet
@@ -29,9 +29,9 @@ namespace MauiApp1.NewFolder1
         private RelayCommand<Set> _navigateCommand;
         private bool _isSwitchToggled;
 
-        public EachFlashQuizViewModel (string userId, Set selectedSet)
+        public EachFlashQuizViewModel (string token, Set selectedSet)
         {
-            _userId = userId;
+            _token = token;
             SelectedSet = selectedSet;
             Title = selectedSet.Title;
             Flashcards = selectedSet.Flashcards;
@@ -76,13 +76,13 @@ namespace MauiApp1.NewFolder1
             {
                 // Navigate to the voice page
                 //await Shell.Current.Navigation.PushAsync(new EachFlashQuizVoicePage(selectedSet));
-                await Shell.Current.Navigation.PushAsync(new EachFlashQuizVoicePage(_userId, selectedSet));
+                await Shell.Current.Navigation.PushAsync(new EachFlashQuizVoicePage(_token, selectedSet));
                 Console.WriteLine($"EachFlashQuizVoicePage SELECTED");
             }
             else
             {
                 // Navigate to the text page
-                await Shell.Current.Navigation.PushAsync(new EachFlashQuizTextPage(_userId, selectedSet));
+                await Shell.Current.Navigation.PushAsync(new EachFlashQuizTextPage(_token, selectedSet));
                 //await Shell.Current.Navigation.PushAsync(new EachFlashQuizTextPage(selectedSet));
                 Console.WriteLine($"EachFlashQuizTextPage SELECTED");
                 Console.WriteLine($"{selectedSet.Title}");

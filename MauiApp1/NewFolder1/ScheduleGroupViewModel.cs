@@ -14,14 +14,17 @@ namespace MauiApp1.NewFolder1
 {
     public partial class ScheduleGroupViewModel : ObservableRecipient
     {
+        private string _token;
+
         private RelayCommand _goBackCommand;
         private RelayCommand _logOutCommand;
 
         private string _group;
 
         private ObservableCollection<ScheduleItem> _scheduleItems;
-        public ScheduleGroupViewModel(string group)
+        public ScheduleGroupViewModel(string token, string group)
         {
+            _token = token;
             _group = group;
             _scheduleItems = new ObservableCollection<ScheduleItem>();
             InitializeAsync();
@@ -47,6 +50,7 @@ namespace MauiApp1.NewFolder1
             try
             {
                 var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
                 var response = await client.GetAsync($"https://moodle-api.azurewebsites.net/api/subjects/group/{_group}");
 
                 if (response.IsSuccessStatusCode)

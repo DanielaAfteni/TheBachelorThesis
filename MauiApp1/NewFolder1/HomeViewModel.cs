@@ -1,15 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace MauiApp1.NewFolder1
 {
-    public partial class HomeViewModel: ObservableRecipient
+    public partial class HomeViewModel : ObservableRecipient
     {
         private RelayCommand _logOutCommand;
         private RelayCommand _goToMainPageCommand;
@@ -17,11 +13,11 @@ namespace MauiApp1.NewFolder1
         private RelayCommand _goToPersonalCabinetPageCommand;
         private RelayCommand _goToChatGPTPageCommand;
 
-        private string _userId;
+        private string _token;
 
-        public HomeViewModel(string userId)
+        public HomeViewModel(string token)
         {
-            _userId = userId;
+            _token = token;
         }
 
         public ICommand LogOutCommand => _logOutCommand ??= new RelayCommand(ExecuteLogOut);
@@ -29,9 +25,6 @@ namespace MauiApp1.NewFolder1
         public ICommand GoToSchedulePageCommand => _goToSchedulePageCommand ??= new RelayCommand(ExecuteGoToSchedulePage);
         public ICommand GoToPersonalCabinetPageCommand => _goToPersonalCabinetPageCommand ??= new RelayCommand(ExecuteGoToPersonalCabinetPage);
         public ICommand GoToChatGPTPageCommand => _goToChatGPTPageCommand ??= new RelayCommand(ExecuteGoToChatGPTPage);
-
-
-
 
         private async void ExecuteLogOut()
         {
@@ -42,16 +35,13 @@ namespace MauiApp1.NewFolder1
         private async void ExecuteGoToMainPage()
         {
             // Navigate to the main page
-            //await Shell.Current.GoToAsync($"{nameof(FlashcardsPage)}");
-            //await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_userId));
-            //await Shell.Current.GoToAsync($"{nameof(FlashcardsPage)}?userId={_userId}");
-            await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_userId));
+            await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_token));
         }
 
         private async void ExecuteGoToSchedulePage()
         {
             // Navigate to the schedule page
-            await Shell.Current.GoToAsync($"{nameof(SchedulePage)}");
+            await Shell.Current.Navigation.PushAsync(new SchedulePage(_token));
         }
 
         private async void ExecuteGoToPersonalCabinetPage()

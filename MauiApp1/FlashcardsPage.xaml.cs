@@ -6,18 +6,18 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using MauiApp1.NewFolder1; // Make sure to include the namespace of FlashcardsViewModel
+using MauiApp1.NewFolder1; 
 
 namespace MauiApp1
 {
     public partial class FlashcardsPage : ContentPage
     {
-        private string _userId;
-        public FlashcardsPage(string userId)
+        private string _token;
+        public FlashcardsPage(string token)
         {
-            InitializeComponent(); // Make sure InitializeComponent() method is generated
-            _userId = userId;
-            BindingContext = new FlashcardsViewModel(userId);
+            InitializeComponent();
+            _token = token;
+            BindingContext = new FlashcardsViewModel(token);
 
         }
 
@@ -27,7 +27,7 @@ namespace MauiApp1
             {
                 // Navigate to the EachFlashcardSet page, passing the selected set
                 //await Navigation.PushAsync(new EachFlashcardSetPage(selectedSet));
-                await Navigation.PushAsync(new EachFlashcardSetPage(_userId, selectedSet));
+                await Navigation.PushAsync(new EachFlashcardSetPage(_token, selectedSet));
             }
 
             // Clear the selection

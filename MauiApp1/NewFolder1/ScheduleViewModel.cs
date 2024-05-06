@@ -12,6 +12,8 @@ namespace MauiApp1.NewFolder1
 {
     public partial class ScheduleViewModel: ObservableRecipient
     {
+        private string _token;
+        private HttpClient _httpClient;
 
         private string _group;
         private string _day;
@@ -45,6 +47,10 @@ namespace MauiApp1.NewFolder1
         public ICommand PickPdfCommand => _pickPdfCommand ??= new RelayCommand(ExecutePickPdf);
 
 
+        public ScheduleViewModel(string token) 
+        { 
+            _token = token;
+        }
 
         private async void ExecuteGoToScheduleGroupCommand()
         {
@@ -52,7 +58,8 @@ namespace MauiApp1.NewFolder1
 
             if (isValid)
             {
-                await Shell.Current.Navigation.PushAsync(new ScheduleGroupPage(Group));
+                await Shell.Current.Navigation.PushAsync(new ScheduleGroupPage(_token, Group));
+                //await Shell.Current.Navigation.PushAsync(new ScheduleGroupPage(Group));
             }
             else
             {
@@ -68,7 +75,7 @@ namespace MauiApp1.NewFolder1
 
             if (isValid)
             {
-                await Shell.Current.Navigation.PushAsync(new ScheduleDayPage(Day));
+                await Shell.Current.Navigation.PushAsync(new ScheduleDayPage(_token, Day));
             }
             else
             {

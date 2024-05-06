@@ -109,7 +109,6 @@
                                         <!-- Row for Click me button -->
                                     </Grid.RowDefinitions>
 
-                                    <!-- Flashcards label -->
                                     <Label Text="{Binding Question}"
                                             HorizontalOptions="CenterAndExpand"
                                             FontFamily="Inter"

@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -16,7 +17,7 @@ namespace MauiApp1.NewFolder1
         private RelayCommand _logOutCommand;
         private RelayCommand _editTitleCommand;
 
-        private string _userId;
+        private string _token;
         private string _newTitle;
         private string _oldTitle;
         private string _setTitle;
@@ -53,16 +54,16 @@ namespace MauiApp1.NewFolder1
             set => SetProperty(ref _setTitle, value);
         }
 
-        public EditTitleSetViewModel(string userId, Set selectedSet)
+        public EditTitleSetViewModel(string token, Set selectedSet)
         {
-            _userId = userId;
+            _token = token;
             
             SelectedSet = selectedSet;
             Id = selectedSet.Id;
             Title = selectedSet.Title;
             Flashcards = selectedSet.Flashcards;
 
-            Console.WriteLine($"_userId: {_userId}");
+            Console.WriteLine($"_userId: {_token}");
             Console.WriteLine($"Title: {Title}");
             Console.WriteLine($"Id: {Id}");
 
@@ -79,7 +80,7 @@ namespace MauiApp1.NewFolder1
         {
             // Navigate back to the previous page
             //await Shell.Current.Navigation.PopAsync();
-            await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_userId));
+            await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_token));
         }
 
         private async void ExecuteEditTitle()
@@ -99,7 +100,8 @@ namespace MauiApp1.NewFolder1
 
                 // Send PATCH request to the API
                 using var client = new HttpClient();
-                var response = await client.PatchAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets/{_userId}/{Id}",
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
+                var response = await client.PatchAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets/{Id}",
                                                        new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
 
                 // Check if the request was successful
