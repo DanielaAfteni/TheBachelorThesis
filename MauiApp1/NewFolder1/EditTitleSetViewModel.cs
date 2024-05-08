@@ -101,7 +101,7 @@ namespace MauiApp1.NewFolder1
                 // Send PATCH request to the API
                 using var client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
-                var response = await client.PatchAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets/{Id}",
+                var response = await client.PatchAsync($"https://assistant-gateway.azurewebsites.net/api/flash-card-sets/{Id}",
                                                        new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
 
                 // Check if the request was successful

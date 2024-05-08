@@ -127,7 +127,7 @@ namespace MauiApp1.NewFolder1
 
             // Fetch sets data from the API
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
-            var setsResponse = _httpClient.GetAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets?pageSize=100&pageNumber=1").Result; 
+            var setsResponse = _httpClient.GetAsync($"https://assistant-gateway.azurewebsites.net/api/flash-card-sets?pageSize=100&pageNumber=1").Result; 
 
             // Inside the LoadSets method
             if (setsResponse.IsSuccessStatusCode)
@@ -154,7 +154,7 @@ namespace MauiApp1.NewFolder1
 
                         // Fetch flashcards data for the current set
                         _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
-                        var flashcardsResponse = _httpClient.GetAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets/flash-cards/{setId}?pageSize=100&pageNumber=1").Result;
+                        var flashcardsResponse = _httpClient.GetAsync($"https://assistant-gateway.azurewebsites.net/api/flash-card-sets/flash-cards/{setId}?pageSize=100&pageNumber=1").Result;
 
                         Console.WriteLine($"Fetch response for set with Id: {setId} and Title: {setTitle}: StatusCode: {flashcardsResponse.StatusCode}, ReasonPhrase: {flashcardsResponse.ReasonPhrase}, Version: {flashcardsResponse.Version}");
 
@@ -421,7 +421,6 @@ namespace MauiApp1.NewFolder1
                 var payload = new
                 {
                     title = TitleNewSet,
-                    userId = _token
                 };
                 Console.WriteLine($"title: {TitleNewSet}");
                 Console.WriteLine($"userId: {_token}");
@@ -430,7 +429,7 @@ namespace MauiApp1.NewFolder1
                 // Send POST request to the API
                 using var client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
-                var response = await client.PostAsync("https://flash-cards-api.azurewebsites.net/api/flash-card-sets",
+                var response = await client.PostAsync("https://assistant-gateway.azurewebsites.net/api/flash-card-sets",
                                                        new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
                 if (response.IsSuccessStatusCode)
                 {
@@ -616,7 +615,7 @@ namespace MauiApp1.NewFolder1
                 
                 using var client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
-                var response = await client.DeleteAsync($"https://flash-cards-api.azurewebsites.net/api/flash-card-sets/{selectedSet.Id}");
+                var response = await client.DeleteAsync($"https://assistant-gateway.azurewebsites.net/api/flash-card-sets/{selectedSet.Id}");
 
                 // Check if the request was successful
                 if (response.IsSuccessStatusCode)

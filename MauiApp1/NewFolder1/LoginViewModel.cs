@@ -172,7 +172,7 @@ namespace MauiApp1.NewFolder1
 
                 // Send POST request to the API
                 using var client = new HttpClient();
-                var response = await client.PostAsync("https://users-indentity-api.azurewebsites.net/api/user/login",
+                var response = await client.PostAsync("https://assistant-gateway.azurewebsites.net/api/user/login",
                                                        new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
                 if (response.IsSuccessStatusCode)
                 {
@@ -182,9 +182,11 @@ namespace MauiApp1.NewFolder1
 
                     // Extract the token from the response
                     string token = responseData.token;
+                    string group = responseData.group;
 
                     // Display token in the console
                     Console.WriteLine($"The received token is {token}");
+                    Console.WriteLine($"The userțs GROUP is {group}");
 
                     // Navigate to the home page with the token
                     await Shell.Current.Navigation.PushAsync(new HomePage(token));

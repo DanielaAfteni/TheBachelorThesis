@@ -2,12 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.EachFlashQuizVoicePage"
-             Title="EachFlashQuizVoicePage">
-    <ScrollView>
+             Title="EachFlashQuizVoicePage"
+             Shell.NavBarIsVisible="False">
+    <ScrollView Margin="0,30,0,0">
         <VerticalStackLayout
             Padding="30,0"
             Spacing="25">
-            <Grid Padding="30,0">
+            <Grid>
                 <!-- Page Header -->
                 <StackLayout Grid.Column="0" Orientation="Horizontal">
                     <!-- Back -->
@@ -51,13 +52,18 @@
                 </Grid.RowDefinitions>
 
                 <!-- Header Label -->
-                <Label Text="Questions"
-                    Grid.Row="0"
-                    HorizontalOptions="Center"
-                    FontFamily="Inter"
-                    FontSize="24"
-                    FontAttributes="Bold"
-                    TextColor="#000000" />
+                <Frame BackgroundColor="#5DB075"
+                    WidthRequest="200"
+                    HeightRequest="75">
+                    <Label Text="Questions"
+                        Grid.Row="0"
+                        HorizontalOptions="Center"
+                        FontFamily="Inter"
+                        FontSize="22"
+                        FontAttributes="Bold"
+                        TextColor="Black" 
+                        VerticalOptions="Center"/>
+                </Frame>
             </Grid>
 
             <!-- Bind to a collection of questions -->
@@ -65,12 +71,12 @@
                 ItemsSource="{Binding Flashcards}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Padding="30,0">
+                        <StackLayout Padding="30,10" BackgroundColor="#5DB075">
                             <!-- Flashcards Section -->
                             <Frame BackgroundColor="#E5E5E5"
-                               WidthRequest="320"
+                               WidthRequest="310"
                                HeightRequest="175"
-                               Margin="0,0,0,20"
+                               Margin="0,0,0,0"
                                Padding="30,0">
                                 <!-- Content for Flashcards Section -->
                                 <Grid VerticalOptions="Center">
@@ -90,7 +96,7 @@
                                         VerticalOptions="Center"
                                         TextColor="#000000"
                                         Grid.Row="0"
-                                        Margin="0,0,0,0" />
+                                        Margin="0,0,0,10" />
                                 </Grid>
                             </Frame>
                         </StackLayout>
@@ -98,18 +104,14 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Label Text="{Binding RecognitionText}"
-                HorizontalOptions="Center"
-                FontFamily="Inter"
-                FontSize="20"
-                FontAttributes="Bold"
-                TextColor="#000000"
-                 />
+            
             <Button Text="Listen"
+                BackgroundColor="DarkGreen"
                 Command="{Binding ListenCommand}"
                 HorizontalOptions="Center"
                 />
             <Button Text="Listen Cancel"
+                BackgroundColor="DarkGreen"
                 Command="{Binding ListenCancelCommand}"
                 HorizontalOptions="Center"
                 />

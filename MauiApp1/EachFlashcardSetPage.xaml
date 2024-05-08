@@ -96,7 +96,7 @@
                         <StackLayout Padding="30,0">
                             <!-- Flashcards Section -->
                             <Frame BackgroundColor="#E5E5E5"
-                                       WidthRequest="320"
+                                       WidthRequest="310"
                                        HeightRequest="175"
                                        Margin="0,0,0,20"
                                        Padding="30,0">

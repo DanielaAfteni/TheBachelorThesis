@@ -292,7 +292,7 @@ namespace MauiApp1.NewFolder1
 
                 // Send POST request to the API
                 using var client = new HttpClient();
-                var response = await client.PostAsync("https://users-indentity-api.azurewebsites.net/api/user/register",
+                var response = await client.PostAsync("https://assistant-gateway.azurewebsites.net/api/user/register",
                                                        new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
 
                 // Check if the request was successful

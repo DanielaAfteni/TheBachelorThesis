@@ -51,7 +51,7 @@ namespace MauiApp1.NewFolder1
             {
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
-                var response = await client.GetAsync($"https://moodle-api.azurewebsites.net/api/subjects/group/{_group}");
+                var response = await client.GetAsync($"https://assistant-gateway.azurewebsites.net/api/subjects/group/{_group}");
 
                 if (response.IsSuccessStatusCode)
                 {

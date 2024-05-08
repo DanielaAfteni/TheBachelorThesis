@@ -4,9 +4,9 @@ namespace MauiApp1;
 
 public partial class AddSetsPage : ContentPage
 {
-    public AddSetsPage(string userId, string setId)
+    public AddSetsPage(string token, string setId)
 	{
 		InitializeComponent();
-        BindingContext = new AddSetsViewModel(userId, setId);
+        BindingContext = new AddSetsViewModel(token, setId);
     }
 }

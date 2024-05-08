@@ -16,16 +16,16 @@ namespace MauiApp1.NewFolder1
         private RelayCommand _logOutCommand;
         private RelayCommand _addCommand;
 
-        private string _userId;
+        private string _token;
         private string _setId;
         private string _newQuestion;
         private string _newAnswer;
 
-        public AddSetsViewModel(string userId, string setId)
+        public AddSetsViewModel(string token, string setId)
         {
-            _userId = userId;
+            _token = token;
             _setId = setId;
-            Console.WriteLine($"User ID: {_userId}");
+            Console.WriteLine($"User ID: {_token}");
             Console.WriteLine($"Set ID: {_setId}");
         }
 
@@ -64,7 +64,7 @@ namespace MauiApp1.NewFolder1
         {
             // Navigate back to the previous page
             //await Shell.Current.Navigation.PopAsync();
-            await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_userId));
+            await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_token));
         }
 
         private async void ExecuteLogOut()
@@ -83,12 +83,10 @@ namespace MauiApp1.NewFolder1
                 // Prepare the payload
                 var payload = new
                 {
-                    userId = _userId,
                     question = NewQuestion,
                     answer = NewAnswer,
                     flashCardSetId = _setId
                 };
-                Console.WriteLine($"userId: {_userId}");
                 Console.WriteLine($"question: {NewQuestion}");
                 Console.WriteLine($"answer: {NewAnswer}");
                 Console.WriteLine($"flashCardSetId: {_setId}");
@@ -104,7 +102,8 @@ namespace MauiApp1.NewFolder1
 
                 // Send POST request to the API
                 using var client = new HttpClient();
-                var response = await client.PostAsync("https://flash-cards-api.azurewebsites.net/api/flash-cards",
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
+                var response = await client.PostAsync("https://assistant-gateway.azurewebsites.net/api/flash-cards",
                                                        new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
 
                 // Check if the request was successful
