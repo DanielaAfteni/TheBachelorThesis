@@ -1227,6 +1227,7 @@ using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -1349,7 +1350,7 @@ namespace MauiApp1.NewFolder1
             }
         }
 
-        private void CheckAnswer(string userAnswer)
+        /*private void CheckAnswer(string userAnswer)
         {
             var currentFlashcard = Flashcards[_currentFlashcardIndex];
             if (userAnswer.ToLower().Trim() == currentFlashcard.Answer.ToLower().Trim())
@@ -1358,7 +1359,66 @@ namespace MauiApp1.NewFolder1
                 _correctAnswers++; // Increment correct answers
             }
             _currentFlashcardIndex++;
+        }*/
+
+        private void CheckAnswer(string userAnswer)
+        {
+            var currentFlashcard = Flashcards[_currentFlashcardIndex];
+            if (userAnswer.ToLower().Trim() == currentFlashcard.Answer.ToLower().Trim())
+            {
+                Console.WriteLine($"SAME {userAnswer.ToLower().Trim()} === {currentFlashcard.Answer.ToLower().Trim()}");
+                // Correct answer without needing API verification
+                _correctAnswers++; // Increment correct answers
+            }
+            else
+            {
+                Console.WriteLine($"OPEN AI verification: {userAnswer.ToLower().Trim()} and {currentFlashcard.Answer.ToLower().Trim()}");
+                // Prepare the payload for verification if the answers are not exactly the same
+                var payload = new
+                {
+                    user_email = _email,
+                    user_answer = userAnswer,
+                    flashcard_answer = currentFlashcard.Answer,
+                    question = $"Is the user's answer '{userAnswer}' similar to '{currentFlashcard.Answer}'?If yes then send me just the word true, if not send me just the word false."
+                };
+                var jsonPayload = JsonConvert.SerializeObject(payload);
+
+                // Send POST request to the OpenAI (chatGPT) API for verification
+                Task.Run(async () =>
+                {
+                    using var client = new HttpClient();
+                    var response = await client.PostAsync("http://10.0.2.2:8080/chat",
+                                                           new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Read and parse the response
+                        var responseContent = await response.Content.ReadAsStringAsync();
+                        var responseData = JsonConvert.DeserializeObject<dynamic>(responseContent);
+
+                        // Extract the verification result
+                        string verificationResult = responseData.response;
+                        Console.WriteLine($"Verification result for question {_currentFlashcardIndex + 1}: {verificationResult}");
+
+                        if (verificationResult.ToLower() == "true")
+                        {
+                            Console.WriteLine($"OPEN AI -- TRUE -- {userAnswer.ToLower().Trim()} and {currentFlashcard.Answer.ToLower().Trim()}");
+                            // Increment correct count if verification result is true
+                            _correctAnswers++;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Failed to verify answer {_currentFlashcardIndex + 1}. Status code: {response.StatusCode}");
+                        // Display an error message if verification fails
+                        await Application.Current.MainPage.DisplayAlert("Error", "Failed to verify answer.", "OK");
+                    }
+                }).Wait(); // Wait for the API call to complete synchronously
+            }
+
+            _currentFlashcardIndex++;
         }
+
 
         async private void DisplayScore()
         {
