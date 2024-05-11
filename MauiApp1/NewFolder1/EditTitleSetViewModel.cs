@@ -18,6 +18,9 @@ namespace MauiApp1.NewFolder1
         private RelayCommand _editTitleCommand;
 
         private string _token;
+        private string _nickname;
+        private string _group;
+        private string _email;
         private string _newTitle;
         private string _oldTitle;
         private string _setTitle;
@@ -54,10 +57,12 @@ namespace MauiApp1.NewFolder1
             set => SetProperty(ref _setTitle, value);
         }
 
-        public EditTitleSetViewModel(string token, Set selectedSet)
+        public EditTitleSetViewModel(string token, string email, string group, string nickname, Set selectedSet)
         {
             _token = token;
-            
+            _nickname = nickname;
+            _group = group;
+            _email = email;
             SelectedSet = selectedSet;
             Id = selectedSet.Id;
             Title = selectedSet.Title;
@@ -80,7 +85,7 @@ namespace MauiApp1.NewFolder1
         {
             // Navigate back to the previous page
             //await Shell.Current.Navigation.PopAsync();
-            await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_token));
+            await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_token, _email, _group, _nickname));
         }
 
         private async void ExecuteEditTitle()

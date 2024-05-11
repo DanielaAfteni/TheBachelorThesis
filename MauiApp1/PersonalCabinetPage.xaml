@@ -2,41 +2,129 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiApp1.PersonalCabinetPage"
-             Title="PersonalCabinetPage">
-    <VerticalStackLayout Padding="30,0" Spacing="25">
-        <Grid Padding="30,0">
-            <!-- Page Header -->
-            <StackLayout Grid.Column="0" Orientation="Horizontal">
-                <!-- Back -->
-                <Label Text="Back"
+             Title="PersonalCabinetPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#E4E6E7">
+    
+    <ScrollView Margin="0,30,0,0">
+        <VerticalStackLayout Padding="30,0" Spacing="25">
+            <Grid Padding="30,0">
+                <!-- Page Header -->
+                <StackLayout Grid.Column="0" Orientation="Horizontal">
+                    <!-- Back -->
+                    <Label Text="Back"
                 VerticalOptions="Center"
                 FontFamily="Inter"
                 FontSize="16"
                 TextDecorations="Underline"
                 TextColor="#5DB075">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding GoBackCommand}" />
-                    </Label.GestureRecognizers>
-                </Label>
-                <!-- Flashcard -->
-                <Label Text="Profile" 
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoBackCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <!-- Flashcard -->
+                    <Label Text="Profile" 
                 HorizontalOptions="CenterAndExpand"
                 FontFamily="Inter"
                 FontSize="30"
                 FontAttributes="Bold"
                 TextColor="#000000" />
-                <!-- Log Out -->
-                <Label Text="Log Out" 
+                    <!-- Log Out -->
+                    <Label Text="Log Out" 
                 VerticalOptions="Center"
                 FontFamily="Inter"
                 FontSize="16"
                 TextDecorations="Underline"
                 TextColor="#5DB075">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding LogOutCommand}"/>
-                    </Label.GestureRecognizers>
-                </Label>
-            </StackLayout>
-        </Grid>
-    </VerticalStackLayout>
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LogOutCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>
+
+            </Grid>
+
+            <Grid RowDefinitions="Auto,*">
+                <Image Grid.Column="0" 
+                       Source="person.png"
+                       HeightRequest="300"
+                       WidthRequest="400"
+                       Aspect="AspectFill"
+                       Margin="0, 0, 0, 0"/>
+                <Frame Grid.Row="1" 
+                       VerticalOptions="Fill"
+                       CornerRadius="20"
+                       BorderColor="Transparent"
+                       Margin="0,20,0,0">
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" 
+                          ColumnDefinitions="*,*,*"
+                          Padding="20"
+                          RowSpacing="10">
+                        <Label Grid.Row="0" 
+                               Grid.Column="0" 
+                               Grid.ColumnSpan="3" 
+                               Text="{Binding Nickname}" 
+                               FontFamily="Inter"
+                               FontAttributes="Bold"
+                               Margin="0, 0, 0, 0"
+                               FontSize="30"/>
+                        <Label Grid.Row="1" 
+                               Grid.Column="0"
+                               Grid.ColumnSpan="3"
+                               Text="{Binding Email}" 
+                               TextColor="Silver"
+                               FontFamily="Inter"
+                               FontAttributes="Bold"
+                               Margin="0, 0, 0, 20"
+                               FontSize="25"/>
+                        <Label Grid.Row="2"
+                               Grid.Column="0"
+                               Text="Group"
+                               FontFamily="Inter"
+                               FontAttributes="Bold"
+                               FontSize="20"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Grid.Row="2"
+                               Grid.Column="1"
+                               Text="Year"
+                               FontFamily="Inter"
+                               FontAttributes="Bold"
+                               FontSize="20"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Grid.Row="2"
+                               Grid.Column="3"
+                               Text="Cycle"
+                               FontFamily="Inter"
+                               FontAttributes="Bold"
+                               FontSize="20"
+                               HorizontalTextAlignment="Center"/>
+                        <Label Grid.Row="3"
+                               Grid.Column="0"
+                               Text="{Binding Group}" 
+                               FontFamily="Inter"
+                               FontAttributes="Bold"
+                               FontSize="20"
+                               HorizontalTextAlignment="Center"
+                               TextColor="Silver"/>
+                        <Label Grid.Row="3"
+                               Grid.Column="1"
+                               Text="{Binding YearOfStudies}"
+                               FontFamily="Inter"
+                               FontAttributes="Bold"
+                               FontSize="20"
+                               HorizontalTextAlignment="Center"
+                               TextColor="Silver"/>
+                        <Label Grid.Row="3"
+                               Grid.Column="3"
+                               Text="License" 
+                               FontFamily="Inter"
+                               FontAttributes="Bold"
+                               FontSize="20"
+                               HorizontalTextAlignment="Center"
+                               TextColor="Silver"/>
+                    </Grid>
+                </Frame>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

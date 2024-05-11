@@ -62,6 +62,9 @@ namespace MauiApp1.NewFolder1
         public Command<Set> NavigateToEachFlashcardSetCommand { get; set; }
 
         private string _token;
+        private string _nickname;
+        private string _group;
+        private string _email;
 
         /*public FlashcardsViewModel(string userId)
         {
@@ -117,9 +120,12 @@ namespace MauiApp1.NewFolder1
         private HttpClient _httpClient;
         
 
-        public FlashcardsViewModel(string token)
+        public FlashcardsViewModel(string token, string email, string group, string nickname)
         {
             _token = token;
+            _nickname = nickname;
+            _group = group;
+            _email = email;
             _httpClient = new HttpClient();
 
             Sets = new ObservableCollection<Set>();
@@ -444,7 +450,7 @@ namespace MauiApp1.NewFolder1
                     // Display userId in the console
                     Console.WriteLine($"The Set ID is {setId}");
                     Console.WriteLine($"The Set Title is {setTitle}");
-                    await Shell.Current.Navigation.PushAsync(new AddSetsPage(_token, setId));
+                    await Shell.Current.Navigation.PushAsync(new AddSetsPage(_token, _email, _group, _nickname, setId));
                     //await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_userId));
                     //await Shell.Current.GoToAsync($"{nameof(AddSetsPage)}");
                 }
@@ -583,7 +589,7 @@ namespace MauiApp1.NewFolder1
         {
             // Navigate to the EachFlashcardSet page and pass the selected set
             Console.WriteLine($"SELECTED {selectedSet.Title}");
-            await Shell.Current.Navigation.PushAsync(new EachFlashcardSetPage(_token, selectedSet));
+            await Shell.Current.Navigation.PushAsync(new EachFlashcardSetPage(_token, _email, _group, _nickname, selectedSet));
             
         }
 
@@ -602,7 +608,7 @@ namespace MauiApp1.NewFolder1
                 //string old_title = selectedSet.Title;
                 //selectedSet.Title = "Updated Set Title"; // Update the title as per your requirements
                 //Console.WriteLine($"The title of the set \"{old_title}\" CHANGED \"{selectedSet.Title}\".");
-                await Shell.Current.Navigation.PushAsync(new EditTitleSetPage(_token, selectedSet));
+                await Shell.Current.Navigation.PushAsync(new EditTitleSetPage(_token, _email, _group, _nickname, selectedSet));
             }
         }
 
@@ -621,7 +627,7 @@ namespace MauiApp1.NewFolder1
                 if (response.IsSuccessStatusCode)
                 {
                     Console.WriteLine($"DELETED \"{selectedSet.Title}\".");
-                    await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_token));
+                    await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_token, _email, _group, _nickname));
 
                 }
                 else
@@ -638,7 +644,7 @@ namespace MauiApp1.NewFolder1
             // Navigate back to the previous page
             //await Shell.Current.Navigation.PopAsync();
             //await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-            await Shell.Current.Navigation.PushAsync(new HomePage(_token));
+            await Shell.Current.Navigation.PushAsync(new HomePage(_token, _email, _group, _nickname));
         }
 
         private async void ExecuteLogOut()

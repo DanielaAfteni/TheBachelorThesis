@@ -13,6 +13,9 @@ namespace MauiApp1.NewFolder1
     {
         private Set _selectedSet;
         private string _token;
+        private string _nickname;
+        private string _group;
+        private string _email;
 
         public Set SelectedSet
         {
@@ -20,9 +23,12 @@ namespace MauiApp1.NewFolder1
             set => SetProperty(ref _selectedSet, value);
         }
 
-        public EachFlashcardSetViewModel(string token, Set selectedSet)
+        public EachFlashcardSetViewModel(string token, string email, string group, string nickname, Set selectedSet)
         {
             _token = token;
+            _nickname = nickname;
+            _group = group;
+            _email = email;
             SelectedSet = selectedSet;
             Title = selectedSet.Title;
             Flashcards = selectedSet.Flashcards;
@@ -60,7 +66,7 @@ namespace MauiApp1.NewFolder1
                 // Handle the case where selectedSet is null
                 return;
             }
-            await Shell.Current.Navigation.PushAsync(new EachFlashQuizPage(_token, selectedSet));
+            await Shell.Current.Navigation.PushAsync(new EachFlashQuizPage(_token, _email, _group, _nickname, selectedSet));
             Console.WriteLine($"QUIZ selected");
         }
 

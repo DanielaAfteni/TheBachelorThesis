@@ -4,9 +4,9 @@ namespace MauiApp1;
 
 public partial class ScorePage : ContentPage
 {
-    public ScorePage(string token, int correctCount, int totalQuestions)
+    public ScorePage(string token, string email, string group, string nickname, int correctCount, int totalQuestions)
     {
         InitializeComponent();
-        BindingContext = new ScoreViewModel(token, correctCount, totalQuestions);
+        BindingContext = new ScoreViewModel(token, email, group, nickname, correctCount, totalQuestions);
     }
 }

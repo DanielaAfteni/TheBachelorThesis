@@ -4,9 +4,9 @@ namespace MauiApp1;
 
 public partial class EachFlashcardSetPage : ContentPage
 {
-    public EachFlashcardSetPage(string token, Set selectedSet)
+    public EachFlashcardSetPage(string token, string email, string group, string nickname, Set selectedSet)
     {
         InitializeComponent();
-        BindingContext = new EachFlashcardSetViewModel(token, selectedSet); 
+        BindingContext = new EachFlashcardSetViewModel(token, email, group, nickname, selectedSet); 
     }
 }

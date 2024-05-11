@@ -2,6 +2,7 @@
 using CommunityToolkit.Maui.Media;
 using MauiApp1.NewFolder1;
 using Microsoft.Extensions.Logging;
+using Plugin.Maui.Biometric;
 using System.Reflection;
 
 namespace MauiApp1
@@ -19,6 +20,8 @@ namespace MauiApp1
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+            builder.Services.AddSingleton<IBiometric>(BiometricAuthenticationService.Default);
 
 #if DEBUG
 

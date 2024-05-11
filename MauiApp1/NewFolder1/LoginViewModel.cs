@@ -183,13 +183,17 @@ namespace MauiApp1.NewFolder1
                     // Extract the token from the response
                     string token = responseData.token;
                     string group = responseData.group;
+                    string nickname = responseData.displayName;
+                    string email = responseData.email;
 
                     // Display token in the console
                     Console.WriteLine($"The received token is {token}");
-                    Console.WriteLine($"The userțs GROUP is {group}");
+                    Console.WriteLine($"The users NICKNAME is {nickname}");
+                    Console.WriteLine($"The users GROUP is {group}");
+                    Console.WriteLine($"The users EMAIL is {email}");
 
                     // Navigate to the home page with the token
-                    await Shell.Current.Navigation.PushAsync(new HomePage(token));
+                    await Shell.Current.Navigation.PushAsync(new HomePage(token, email, group, nickname));
                 }
                 else
                 {

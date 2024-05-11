@@ -13,11 +13,17 @@ namespace MauiApp1
     public partial class FlashcardsPage : ContentPage
     {
         private string _token;
-        public FlashcardsPage(string token)
+        private string _nickname;
+        private string _group;
+        private string _email;
+        public FlashcardsPage(string token, string email, string group, string nickname)
         {
             InitializeComponent();
             _token = token;
-            BindingContext = new FlashcardsViewModel(token);
+            _nickname = nickname;
+            _group = group;
+            _email = email;
+            BindingContext = new FlashcardsViewModel(token, email, group, nickname);
 
         }
 
@@ -27,7 +33,7 @@ namespace MauiApp1
             {
                 // Navigate to the EachFlashcardSet page, passing the selected set
                 //await Navigation.PushAsync(new EachFlashcardSetPage(selectedSet));
-                await Navigation.PushAsync(new EachFlashcardSetPage(_token, selectedSet));
+                await Navigation.PushAsync(new EachFlashcardSetPage(_token, _email, _group, _nickname, selectedSet));
             }
 
             // Clear the selection

@@ -17,13 +17,19 @@ namespace MauiApp1.NewFolder1
         private RelayCommand _addCommand;
 
         private string _token;
+        private string _nickname;
+        private string _group;
+        private string _email;
         private string _setId;
         private string _newQuestion;
         private string _newAnswer;
 
-        public AddSetsViewModel(string token, string setId)
+        public AddSetsViewModel(string token, string email, string group, string nickname, string setId)
         {
             _token = token;
+            _nickname = nickname;
+            _group = group;
+            _email = email;
             _setId = setId;
             Console.WriteLine($"User ID: {_token}");
             Console.WriteLine($"Set ID: {_setId}");
@@ -64,7 +70,7 @@ namespace MauiApp1.NewFolder1
         {
             // Navigate back to the previous page
             //await Shell.Current.Navigation.PopAsync();
-            await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_token));
+            await Shell.Current.Navigation.PushAsync(new FlashcardsPage(_token, _email, _group, _nickname));
         }
 
         private async void ExecuteLogOut()

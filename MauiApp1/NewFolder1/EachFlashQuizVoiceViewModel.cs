@@ -1241,6 +1241,9 @@ namespace MauiApp1.NewFolder1
     public partial class EachFlashQuizVoiceViewModel : ObservableRecipient
     {
         private string _token;
+        private string _nickname;
+        private string _group;
+        private string _email;
         private int _currentFlashcardIndex = 0;
         private int _correctAnswers = 0;
         private int _totalQuestions = 0;
@@ -1255,9 +1258,12 @@ namespace MauiApp1.NewFolder1
         public Command ListenCommand { get; set; }
         public Command ListenCancelCommand { get; set; }
 
-        public EachFlashQuizVoiceViewModel(string token, Set selectedSet)
+        public EachFlashQuizVoiceViewModel(string token, string email, string group, string nickname, Set selectedSet)
         {
             _token = token;
+            _nickname = nickname;
+            _group = group;
+            _email = email;
             Title = selectedSet.Title;
             Flashcards = selectedSet.Flashcards;
             ListenCommand = new Command(StartListening);
@@ -1357,7 +1363,7 @@ namespace MauiApp1.NewFolder1
         async private void DisplayScore()
         {
             Console.WriteLine($"Quiz completed.\nCorrect Answers: {_correctAnswers}\nTotal Questions: {_totalQuestions}");
-            await Shell.Current.Navigation.PushAsync(new ScorePage(_token, _correctAnswers, _totalQuestions));
+            await Shell.Current.Navigation.PushAsync(new ScorePage(_token, _email, _group, _nickname, _correctAnswers, _totalQuestions));
         }
     }
 }

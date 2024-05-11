@@ -4,9 +4,9 @@ namespace MauiApp1;
 
 public partial class PersonalCabinetPage : ContentPage
 {
-	public PersonalCabinetPage(PersonalCabinetViewModel vm)
+	public PersonalCabinetPage(string token, string email, string group, string nickname)
 	{
 		InitializeComponent();
-		BindingContext = vm;
+		BindingContext = new PersonalCabinetViewModel(token, email, group, nickname);
 	}
 }

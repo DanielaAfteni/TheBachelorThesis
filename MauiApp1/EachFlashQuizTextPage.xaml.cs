@@ -4,10 +4,10 @@ namespace MauiApp1;
 
 public partial class EachFlashQuizTextPage : ContentPage
 {
-	public EachFlashQuizTextPage(string token, Set selectedSet)
+	public EachFlashQuizTextPage(string token, string email, string group, string nickname, Set selectedSet)
 	{
 		InitializeComponent();
-        BindingContext = new EachFlashQuizTextViewModel(token, selectedSet);
+        BindingContext = new EachFlashQuizTextViewModel(token, email, group, nickname, selectedSet);
     }
     private void Entry_TextChanged(object sender, TextChangedEventArgs e)
     {

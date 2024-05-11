@@ -74,6 +74,7 @@
                                Text="{Binding TitleNewSet}" 
                                Grid.Row="0"
                                Grid.Column="0"
+                                TextColor="White"
                               />
                             <!-- Click me button -->
                             <Button Text="+"

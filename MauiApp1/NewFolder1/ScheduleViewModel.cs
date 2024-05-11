@@ -13,6 +13,9 @@ namespace MauiApp1.NewFolder1
     public partial class ScheduleViewModel: ObservableRecipient
     {
         private string _token;
+        private string _nickname;
+        private string _groupUser;
+        private string _email;
         private HttpClient _httpClient;
 
         private string _group;
@@ -47,9 +50,12 @@ namespace MauiApp1.NewFolder1
         public ICommand PickPdfCommand => _pickPdfCommand ??= new RelayCommand(ExecutePickPdf);
 
 
-        public ScheduleViewModel(string token) 
+        public ScheduleViewModel(string token, string email, string groupUser, string nickname)
         { 
             _token = token;
+            _nickname = nickname;
+            _groupUser = groupUser;
+            _email = email;
         }
 
         private async void ExecuteGoToScheduleGroupCommand()

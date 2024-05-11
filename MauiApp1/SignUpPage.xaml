@@ -14,10 +14,13 @@
             <!-- Page Header -->
             <StackLayout Grid.Column="0" Orientation="Horizontal">
                 <!-- Sign Up -->
-                <Label Text="Home"
-                    TextColor="White"/>
+                <Image Source="new_logo22.png"
+                    HeightRequest="100"
+                    WidthRequest="100"
+                    Margin="-30, 0, -10, 0"/>
                 <Label Text="Sign Up" 
                    HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="Center"
                    FontFamily="Inter"
                    FontSize="30"
                    FontAttributes="Bold"
@@ -27,6 +30,7 @@
                    VerticalOptions="Center"
                    FontFamily="Inter"
                    FontSize="16"
+                   FontAttributes="Bold"
                    TextDecorations="Underline"
                    TextColor="#5DB075">
                     <Label.GestureRecognizers>
@@ -50,12 +54,13 @@
             <!-- Checkbox -->
             <StackLayout Grid.Column="0" Margin="10,5,-1,20" VerticalOptions="Start">
                 <StackLayout Orientation="Horizontal">
-                    <CheckBox />
-                    <Label Text="I would like to receive your new and other useful information."
+                    <CheckBox Color="Green"/>
+                    <Label Text="I would like to receive emails and other useful information."
                        FontFamily="Inter"
                        FontSize="14"
                        FontAttributes="None"
                        TextColor="#666666"
+                       VerticalOptions="Center"
                        HorizontalOptions="FillAndExpand"
                        LineBreakMode="WordWrap" />
                 </StackLayout>
@@ -63,6 +68,7 @@
 
             <Button Text="Sign Up" 
                     Command="{Binding SignUpCommand}" 
+                    FontAttributes="Bold"
                     BackgroundColor="Green"/>
         </StackLayout>
     </VerticalStackLayout>

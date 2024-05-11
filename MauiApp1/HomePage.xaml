@@ -11,12 +11,15 @@
                 <!-- Page Header -->
                 <StackLayout Grid.Column="0" Orientation="Horizontal">
                     <!-- Home -->
-                    <Label Text="Home"
-                           TextColor="White"/>
+                    <Image Source="new_logo22.png"
+                        HeightRequest="100"
+                        WidthRequest="100"
+                        Margin="-30, 0, -10, 0"/>
                     <Label Text="Home" 
                        HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="Center"
                        FontFamily="Inter"
-                       FontSize="30"
+                       FontSize="35"
                        FontAttributes="Bold"
                        TextColor="#000000" />
                     <!-- Log In -->
@@ -25,6 +28,7 @@
                        FontFamily="Inter"
                        FontSize="16"
                        TextDecorations="Underline"
+                       FontAttributes="Bold"
                        TextColor="#5DB075">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding LogOutCommand}"/>
@@ -32,7 +36,7 @@
                     </Label>
                 </StackLayout>
             </Grid>
-
+            
             <StackLayout Padding="30,0">
                 <!-- Flashcards Section -->
                 <Frame BackgroundColor="#E5E5E5"
@@ -69,11 +73,21 @@
                     </Grid>
                 </Frame>
 
+                <Grid Margin="-2,-2,-6,15">
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="5" RadiusX="7" RadiusY="7" Opacity="0.3"/>
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="4" RadiusX="8" RadiusY="8" Opacity="0.25"/>
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="3" RadiusX="9" RadiusY="9" Opacity="0.2"/>
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="2" RadiusX="10" RadiusY="10" Opacity="0.15"/>
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="1" RadiusX="11" RadiusY="11" Opacity="0.1"/>
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="0" RadiusX="12" RadiusY="12" Opacity="0.05"/>
+                </Grid>
+
+
                 <Frame BackgroundColor="#E5E5E5"
-           WidthRequest="343"
-           HeightRequest="175"
-           Margin="0,0,0,20"
-           Padding="30,0">
+                   WidthRequest="343"
+                   HeightRequest="175"
+                   Margin="0,0,0,20"
+                   Padding="30,0">
                     <!-- Content for Schedule Section -->
                     <Grid VerticalOptions="Center">
                         <Grid.RowDefinitions>
@@ -103,6 +117,15 @@
                     </Grid>
                 </Frame>
 
+                <Grid Margin="-2,-2,-6,15">
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="5" RadiusX="7" RadiusY="7" Opacity="0.3"/>
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="4" RadiusX="8" RadiusY="8" Opacity="0.25"/>
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="3" RadiusX="9" RadiusY="9" Opacity="0.2"/>
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="2" RadiusX="10" RadiusY="10" Opacity="0.15"/>
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="1" RadiusX="11" RadiusY="11" Opacity="0.1"/>
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="0" RadiusX="12" RadiusY="12" Opacity="0.05"/>
+                </Grid>
+
                 <Frame BackgroundColor="#E5E5E5"
                    WidthRequest="343"
                    HeightRequest="175"
@@ -118,24 +141,35 @@
                         </Grid.RowDefinitions>
 
                         <!-- Flashcards label -->
-                        <Label Text="Personal Cabinet"
-                            HorizontalOptions="CenterAndExpand"
-                            FontFamily="Inter"
-                            FontSize="30"
-                            FontAttributes="Bold"
-                            VerticalOptions="Center"
-                            TextColor="#000000"
-                            Grid.Row="0"
-                            Margin="0,0,0,10" />
+                        <Label Text="AI assistence"
+                           HorizontalOptions="CenterAndExpand"
+                           FontFamily="Inter"
+                           FontSize="30"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"
+                           TextColor="#000000"
+                           Grid.Row="0"
+                           Margin="0,0,0,10" />
 
                         <!-- Click me button -->
                         <Button Text="Click me"
-                            Command="{Binding GoToPersonalCabinetPageCommand}"
+                            Command="{Binding GoToChatGPTPageCommand}"
                             Grid.Row="1"
                             Margin="0,10,0,0" 
                             BackgroundColor="Green"/>
+
+                       
                     </Grid>
                 </Frame>
+
+                <Grid Margin="-2,-2,-6,15">
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="5" RadiusX="7" RadiusY="7" Opacity="0.3"/>
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="4" RadiusX="8" RadiusY="8" Opacity="0.25"/>
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="3" RadiusX="9" RadiusY="9" Opacity="0.2"/>
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="2" RadiusX="10" RadiusY="10" Opacity="0.15"/>
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="1" RadiusX="11" RadiusY="11" Opacity="0.1"/>
+                    <Rectangle Stroke="Green" WidthRequest="340" Margin="0" RadiusX="12" RadiusY="12" Opacity="0.05"/>
+                </Grid>
 
                 <Frame BackgroundColor="#E5E5E5"
                     WidthRequest="343"
@@ -152,22 +186,23 @@
                         </Grid.RowDefinitions>
 
                         <!-- Flashcards label -->
-                        <Label Text="Ask"
-                           HorizontalOptions="CenterAndExpand"
-                           FontFamily="Inter"
-                           FontSize="30"
-                           FontAttributes="Bold"
-                           VerticalOptions="Center"
-                           TextColor="#000000"
-                           Grid.Row="0"
-                           Margin="0,0,0,10" />
+                        <!-- Flashcards label -->
+                        <Label Text="Profile"
+                             HorizontalOptions="CenterAndExpand"
+                             FontFamily="Inter"
+                             FontSize="30"
+                             FontAttributes="Bold"
+                             VerticalOptions="Center"
+                             TextColor="#000000"
+                             Grid.Row="0"
+                             Margin="0,0,0,10" />
 
                         <!-- Click me button -->
                         <Button Text="Click me"
-                            Command="{Binding GoToChatGPTPageCommand}"
-                            Grid.Row="1"
-                            Margin="0,10,0,0" 
-                            BackgroundColor="Green"/>
+                             Command="{Binding GoToPersonalCabinetPageCommand}"
+                             Grid.Row="1"
+                             Margin="0,10,0,0" 
+                             BackgroundColor="Green"/>
                     </Grid>
                 </Frame>
             </StackLayout>
