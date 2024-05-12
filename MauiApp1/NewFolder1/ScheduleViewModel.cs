@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -26,6 +28,8 @@ namespace MauiApp1.NewFolder1
         private RelayCommand _logOutCommand;
         private RelayCommand _goToScheduleDayCommand;
         private RelayCommand _goToScheduleGroupCommand;
+
+        private ObservableCollection<ScheduleItem2> _scheduleItems2;
 
 
         public string Group
@@ -56,6 +60,63 @@ namespace MauiApp1.NewFolder1
             _nickname = nickname;
             _groupUser = groupUser;
             _email = email;
+            _scheduleItems2 = new ObservableCollection<ScheduleItem2>();
+            InitializeAsync();
+            Console.WriteLine($"User's group: {_groupUser}");
+        }
+
+        public ObservableCollection<ScheduleItem2> ScheduleItems2
+        {
+            get => _scheduleItems2;
+            set => SetProperty(ref _scheduleItems2, value);
+        }
+
+        private async Task InitializeAsync()
+        {
+            await GetScheduleAsync();
+        }
+
+
+        private async Task GetScheduleAsync()
+        {
+            try
+            {
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
+                var response = await client.GetAsync($"https://assistant-gateway.azurewebsites.net/api/subjects/group/{_groupUser}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var scheduleResponse2 = JsonConvert.DeserializeObject<ScheduleApiResponse2>(responseContent);
+
+                    if (scheduleResponse2.Success && scheduleResponse2.Entity != null)
+                    {
+                        // Define the order of days of the week
+                        var dayOrder = new List<string> { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
+
+                        foreach (var dayOfWeek in dayOrder)
+                        {
+                            foreach (var item in scheduleResponse2.Entity.Where(item => item.Day == dayOfWeek).OrderBy(item => item.StartTime))
+                            {
+                                ScheduleItems2.Add(item);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Error in API response: {scheduleResponse2.ErrorMessage}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Error getting schedule: Status Code {response.StatusCode}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error getting schedule: {ex.Message}");
+            }
         }
 
         private async void ExecuteGoToScheduleGroupCommand()
@@ -142,5 +203,29 @@ namespace MauiApp1.NewFolder1
             // Navigate to the login page
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
+    }
+
+    public class ScheduleItem2
+    {
+        public string Title { get; set; }
+        public string Day { get; set; }
+        public string Group { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
+        public string CourseInfo { get; set; }
+    }
+
+    public class ScheduleResponse2
+    {
+        public bool Success { get; set; }
+        public string ErrorMessage { get; set; }
+        public ObservableCollection<ScheduleItem2> Entity { get; set; }
+    }
+
+    public class ScheduleApiResponse2
+    {
+        public bool Success { get; set; }
+        public string ErrorMessage { get; set; }
+        public List<ScheduleItem2> Entity { get; set; }
     }
 }

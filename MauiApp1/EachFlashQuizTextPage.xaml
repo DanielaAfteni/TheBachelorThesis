@@ -17,6 +17,7 @@
                         VerticalOptions="Center"
                         FontFamily="Inter"
                         FontSize="16"
+                        FontAttributes="Bold"
                         TextDecorations="Underline"
                         TextColor="#5DB075">
                         <Label.GestureRecognizers>
@@ -35,6 +36,7 @@
                         VerticalOptions="Center"
                         FontFamily="Inter"
                         FontSize="16"
+                        FontAttributes="Bold"
                         TextDecorations="Underline"
                         TextColor="#5DB075">
                         <Label.GestureRecognizers>

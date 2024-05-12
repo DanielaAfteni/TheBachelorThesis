@@ -14,6 +14,7 @@
                     FontFamily="Inter"
                     FontSize="16"
                     TextDecorations="Underline"
+                    FontAttributes="Bold"
                     TextColor="White">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding GoBackCommand}" />
@@ -31,6 +32,7 @@
                         VerticalOptions="Center"
                         FontFamily="Inter"
                         FontSize="16"
+                        FontAttributes="Bold"
                         TextDecorations="Underline"
                         TextColor="White">
                     <Label.GestureRecognizers>

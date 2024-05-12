@@ -10,29 +10,31 @@
                 <StackLayout Grid.Column="0" Orientation="Horizontal">
                     <!-- Back -->
                     <Label Text="Back"
-                    VerticalOptions="Center"
-                    FontFamily="Inter"
-                    FontSize="16"
-                    TextDecorations="Underline"
-                    TextColor="#5DB075">
+                        VerticalOptions="Center"
+                        FontFamily="Inter"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextDecorations="Underline"
+                        TextColor="#5DB075">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GoBackCommand}" />
                         </Label.GestureRecognizers>
                     </Label>
                     <!-- Flashcard -->
                     <Label Text="Schedule" 
-                    HorizontalOptions="CenterAndExpand"
-                    FontFamily="Inter"
-                    FontSize="30"
-                    FontAttributes="Bold"
-                    TextColor="#000000" />
+                        HorizontalOptions="CenterAndExpand"
+                        FontFamily="Inter"
+                        FontSize="30"
+                        FontAttributes="Bold"
+                        TextColor="#000000" />
                     <!-- Log Out -->
                     <Label Text="Log Out" 
-                    VerticalOptions="Center"
-                    FontFamily="Inter"
-                    FontSize="16"
-                    TextDecorations="Underline"
-                    TextColor="#5DB075">
+                        VerticalOptions="Center"
+                        FontFamily="Inter"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextDecorations="Underline"
+                        TextColor="#5DB075">
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding LogOutCommand}"/>
                         </Label.GestureRecognizers>
@@ -40,67 +42,102 @@
                 </StackLayout>
             </Grid>
 
+
+
             <CollectionView ItemsSource="{Binding ScheduleItems}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
 
-                        <StackLayout Padding="30,0">
-                            <!-- Flashcards Section -->
-                            <Grid BackgroundColor="#E5E5E5"
-                                WidthRequest="320"
-                                HeightRequest="150"
-                                Margin="0,0,0,16"
-                                Padding="30,0">
 
-                                <Grid VerticalOptions="Center">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <!-- Row for Flashcards label -->
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <!-- Row for Click me button -->
-                                    </Grid.RowDefinitions>
 
-                                    <!-- Set title -->
-                                    
-                                    <Label Text="{Binding Title}" 
-                                        Grid.Row="0"
-                                        FontFamily="Inter"
-                                        FontSize="16"
-                                        FontAttributes="Bold"
-                                        TextColor="#000000"
-                                        VerticalOptions="Center" />
-                                    <Label Text="{Binding Group}" 
-                                        Grid.Row="1"
-                                        FontFamily="Inter"
-                                        FontSize="16"
-                                        FontAttributes="Bold"
-                                        TextColor="#000000"
-                                        VerticalOptions="Center" /> 
-                                    <Label Text="{Binding StartTime}" 
-                                        Grid.Row="2"
-                                        FontFamily="Inter"
-                                        FontSize="16"
-                                        FontAttributes="Bold"
-                                        TextColor="#000000"
-                                        VerticalOptions="Center" />
-                                    <Label Text="{Binding EndTime}" 
-                                        Grid.Row="3"
-                                        FontFamily="Inter"
-                                        FontSize="16"
-                                        FontAttributes="Bold"
-                                        TextColor="#000000"
-                                        VerticalOptions="Center" />
-                                    <Label Text="{Binding CourseInfo}" 
-                                        Grid.Row="4"
-                                        FontFamily="Inter"
-                                        FontSize="16"
-                                        FontAttributes="Bold"
-                                        TextColor="#000000"
-                                        VerticalOptions="Center" />
-                                    <!-- Edit text -->
+                        <StackLayout >
+
+                            <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                                <Image Grid.Column="0" Grid.Row="0" 
+                       Source="new_logo22.png"
+                       HeightRequest="50"
+                       WidthRequest="50"
+                       Aspect="AspectFill"
+                       Margin="0, 20, 0, 0"
+                        VerticalOptions="Start"/>
+                                <Frame  Grid.Column="1" Grid.Row="0" 
+                       VerticalOptions="Fill"
+                       CornerRadius="20"
+                       BorderColor="Transparent"
+                        BackgroundColor="Transparent"
+                       Margin="0,10,0,0">
+                                    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" 
+                              ColumnDefinitions="*,*"
+                              Padding="0"
+                              RowSpacing="2"
+                              Margin="10,0,0,0">
+                                        <Label Grid.Row="0" 
+                               Grid.Column="0" 
+                               Grid.ColumnSpan="3" 
+                               Text="{Binding Title}" 
+                               FontFamily="Inter"
+                               FontAttributes="Bold"
+                               Margin="0, 0, 0, 0"
+                               FontSize="16"/>
+                                        <Label Grid.Row="1" 
+                               Grid.Column="0"
+                               Grid.ColumnSpan="3"
+                               Text="{Binding Day}" 
+                               TextColor="Silver"
+                               FontFamily="Inter"
+                               FontAttributes="Bold"
+                               Margin="0, 0, 0, 0"
+                               FontSize="16"/>
+                                        <Label Grid.Row="2" 
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                Text="{Binding CourseInfo}" 
+                                TextColor="Silver"
+                                FontFamily="Inter"
+                                FontAttributes="Bold"
+                                Margin="0, 0, 0, 10"
+                                FontSize="16"/>
+                                        <Label Grid.Row="3"
+                               Grid.Column="0"
+                               Text="Start time"
+                               FontFamily="Inter"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               HorizontalTextAlignment="Center"/>
+                                        <Label Grid.Row="3"
+                               Grid.Column="1"
+                               Text="End time"
+                               FontFamily="Inter"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               HorizontalTextAlignment="Center"/>
+
+                                        <Label Grid.Row="4"
+                               Grid.Column="0"
+                               Text="{Binding StartTime}" 
+                               FontFamily="Inter"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               HorizontalTextAlignment="Center"
+                               TextColor="Silver"/>
+                                        <Label Grid.Row="4"
+                               Grid.Column="1"
+                               Text="{Binding EndTime}"
+                               FontFamily="Inter"
+                               FontAttributes="Bold"
+                               FontSize="16"
+                               HorizontalTextAlignment="Center"
+                               TextColor="Silver"/>
+
+                                    </Grid>
+                                </Frame>
+                                <Grid Margin="-2,-2,-6,15" Grid.Row="1"  Grid.ColumnSpan="2" >
+                                    <Rectangle Stroke="Green" HeightRequest="2" WidthRequest="340" Margin="5" RadiusX="7" RadiusY="7" Opacity="0.3"/>
+                                    <Rectangle Stroke="Green" HeightRequest="2" WidthRequest="340" Margin="4" RadiusX="8" RadiusY="8" Opacity="0.25"/>
+                                    <Rectangle Stroke="Green" HeightRequest="2" WidthRequest="340" Margin="3" RadiusX="9" RadiusY="9" Opacity="0.2"/>
+                                    <Rectangle Stroke="Green" HeightRequest="2" WidthRequest="340" Margin="2" RadiusX="10" RadiusY="10" Opacity="0.15"/>
+                                    <Rectangle Stroke="Green" HeightRequest="2" WidthRequest="340" Margin="1" RadiusX="11" RadiusY="11" Opacity="0.1"/>
+                                    <Rectangle Stroke="Green" HeightRequest="2" WidthRequest="340" Margin="0" RadiusX="12" RadiusY="12" Opacity="0.05"/>
                                 </Grid>
                             </Grid>
                         </StackLayout>
