@@ -21,7 +21,7 @@
                         </Label.GestureRecognizers>
                     </Label>
                     <!-- Flashcard -->
-                    <Label Text="AI assistence" 
+                    <Label Text="AI assistant" 
                     HorizontalOptions="CenterAndExpand"
                     FontFamily="Inter"
                     FontSize="30"
