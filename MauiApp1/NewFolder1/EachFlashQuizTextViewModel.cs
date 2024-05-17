@@ -80,59 +80,6 @@ namespace MauiApp1.NewFolder1
             await Shell.Current.Navigation.PushAsync(new ScorePage(_token, _email, _group, _nickname, correctCount, totalQuestions));
         }*/
 
-        /*private async void ExecuteCheckAnswers(Set? selectedSet)
-        {
-            int correctCount = 0;
-            for (int i = 0; i < Flashcards.Count; i++)
-            {
-                if (i < UserAnswers.Count)
-                {
-                    // Prepare the payload for verification
-                    var payload = new
-                    {
-                        user_email = _email,
-                        user_answer = UserAnswers[i],
-                        flashcard_answer = Flashcards[i].Answer,
-                        question = $"Is the user's answer '{UserAnswers[i]}' similar to '{Flashcards[i].Answer}'? If yes then send me true, if not send me false."
-                    };
-                    var jsonPayload = JsonConvert.SerializeObject(payload);
-
-                    // Send POST request to the OpenAI (chatGPT) API
-                    using var client = new HttpClient();
-                    var response = await client.PostAsync("http://10.0.2.2:8080/chat",
-                                                           new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        // Read and parse the response
-                        var responseContent = await response.Content.ReadAsStringAsync();
-                        var responseData = JsonConvert.DeserializeObject<dynamic>(responseContent);
-
-                        // Extract the verification result
-                        string verificationResult = responseData.response;
-                        Console.WriteLine($"Verification result for question {i + 1}: {verificationResult}");
-
-                        if (verificationResult.ToLower() == "true")
-                        {
-                            // Increment correct count if verification result is true
-                            correctCount++;
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Failed to verify answer {i + 1}. Status code: {response.StatusCode}");
-                        // Display an error message if verification fails
-                        await Application.Current.MainPage.DisplayAlert("Error", "Failed to verify answer.", "OK");
-                    }
-                }
-            }
-
-            //int totalQuestions = Math.Min(Flashcards.Count, UserAnswers.Count);
-            int totalQuestions = Flashcards.Count;
-            Console.WriteLine($"Total correct answers: {correctCount}/{totalQuestions}");
-            await Shell.Current.Navigation.PushAsync(new ScorePage(_token, _email, _group, _nickname, correctCount, totalQuestions));
-        }*/
-
         private async void ExecuteCheckAnswers(Set? selectedSet)
         {
             int correctCount = 0;
@@ -159,7 +106,7 @@ namespace MauiApp1.NewFolder1
 
                     // Send POST request to the OpenAI (chatGPT) API
                     using var client = new HttpClient();
-                    var response = await client.PostAsync("http://10.0.2.2:8080/chat",
+                    var response = await client.PostAsync("https://thesis-ai-assistant.azurewebsites.net/chat",
                                                            new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
 
                     if (response.IsSuccessStatusCode)

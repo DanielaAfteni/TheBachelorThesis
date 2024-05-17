@@ -20,8 +20,8 @@ namespace MauiApp1.NewFolder1
         private string _email;
         private HttpClient _httpClient;
 
-        private string _group;
-        private string _day;
+        private string? _group;
+        private string? _day;
         private RelayCommand _pickPdfCommand;
 
         private RelayCommand _goBackCommand;
@@ -32,13 +32,13 @@ namespace MauiApp1.NewFolder1
         private ObservableCollection<ScheduleItem2> _scheduleItems2;
 
 
-        public string Group
+        public string? Group
         {
             get => _group;
             set => SetProperty(ref _group, value);
         }
 
-        public string Day
+        public string? Day
         {
             get => _day;
             set => SetProperty(ref _day, value);
@@ -47,7 +47,6 @@ namespace MauiApp1.NewFolder1
         public ICommand GoBackCommand => _goBackCommand ??= new RelayCommand(ExecuteGoBack);
         public ICommand LogOutCommand => _logOutCommand ??= new RelayCommand(ExecuteLogOut);
 
-        public ICommand GoToScheduleDayCommand => _goToScheduleDayCommand ??= new RelayCommand(ExecuteGoToScheduleDayCommand);
         public ICommand GoToScheduleGroupCommand => _goToScheduleGroupCommand ??= new RelayCommand(ExecuteGoToScheduleGroupCommand);
 
 
@@ -83,7 +82,11 @@ namespace MauiApp1.NewFolder1
             {
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
-                var response = await client.GetAsync($"https://assistant-gateway.azurewebsites.net/api/subjects/group/{_groupUser}");
+                var subjectGroup = _group ?? _groupUser;
+                Group = subjectGroup;
+                _day ??= DateTimeOffset.Now.DayOfWeek.ToString();
+                var subjectDay = Enum.TryParse(_day, true, out DayOfWeek dayOfWeek) ? dayOfWeek : DateTimeOffset.Now.DayOfWeek;
+                var response = await client.GetAsync($"https://assistant-gateway.azurewebsites.net/api/subjects?Group={subjectGroup}&Day={subjectDay}");
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -93,15 +96,13 @@ namespace MauiApp1.NewFolder1
                     if (scheduleResponse2.Success && scheduleResponse2.Entity != null)
                     {
                         // Define the order of days of the week
-                        var dayOrder = new List<string> { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
-                        foreach (var dayOfWeek in dayOrder)
-                        {
-                            foreach (var item in scheduleResponse2.Entity.Where(item => item.Day == dayOfWeek).OrderBy(item => item.StartTime))
-                            {
-                                ScheduleItems2.Add(item);
-                            }
-                        }
+                        ScheduleItems2 =new ObservableCollection<ScheduleItem2>(
+                        [
+                            .. scheduleResponse2.Entity
+                                                        .OrderBy(item => item.StartTime)
+,
+                        ]);
                     }
                     else
                     {
@@ -125,7 +126,7 @@ namespace MauiApp1.NewFolder1
 
             if (isValid)
             {
-                await Shell.Current.Navigation.PushAsync(new ScheduleGroupPage(_token, Group));
+                await Shell.Current.Navigation.PushAsync(new ScheduleGroupPage(_token, Group, Day.ToString()));
                 //await Shell.Current.Navigation.PushAsync(new ScheduleGroupPage(Group));
             }
             else
@@ -136,34 +137,12 @@ namespace MauiApp1.NewFolder1
 
         }
 
-        private async void ExecuteGoToScheduleDayCommand()
-        {
-            bool isValid = ValidateScheduleDay();
-
-            if (isValid)
-            {
-                await Shell.Current.Navigation.PushAsync(new ScheduleDayPage(_token, Day));
-            }
-            else
-            {
-                // Display an error message
-                await Application.Current.MainPage.DisplayAlert("Error", "Invalid Day.", "OK");
-            }
-
-        }
 
         private bool ValidateScheduleGroup()
         {
             // Perform login validation logic here
             // For demonstration purposes, let's assume validation is successful if both fields are non-empty
             return !string.IsNullOrEmpty(Group);
-        }
-
-        private bool ValidateScheduleDay()
-        {
-            // Perform login validation logic here
-            // For demonstration purposes, let's assume validation is successful if both fields are non-empty
-            return !string.IsNullOrEmpty(Day);
         }
 
         private async void ExecutePickPdf()

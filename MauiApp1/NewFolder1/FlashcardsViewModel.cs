@@ -118,7 +118,7 @@ namespace MauiApp1.NewFolder1
         }*/
 
         private HttpClient _httpClient;
-        
+
 
         public FlashcardsViewModel(string token, string email, string group, string nickname)
         {
@@ -133,98 +133,62 @@ namespace MauiApp1.NewFolder1
 
             // Fetch sets data from the API
             _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
-            var setsResponse = _httpClient.GetAsync($"https://assistant-gateway.azurewebsites.net/api/flash-card-sets?pageSize=100&pageNumber=1").Result; 
+            var setsResponse = _httpClient.GetAsync($"https://assistant-gateway.azurewebsites.net/api/flash-card-sets?pageSize=100&pageNumber=1").Result;
 
             // Inside the LoadSets method
             if (setsResponse.IsSuccessStatusCode)
             {
                 var setsData = setsResponse.Content.ReadAsStringAsync().Result;
-                dynamic setsEntity = JsonConvert.DeserializeObject(setsData); // Deserialize dynamically
+                var setsEntity = JsonConvert.DeserializeObject<GetEntityResponse<Set>>(setsData); // Deserialize dynamically
                 Console.WriteLine($"Sets Entity: {setsEntity}");
 
                 // Check if the required properties exist in the JSON response
-                if (setsEntity?.entity?.items != null)
+                if (setsEntity?.Entity.Items != null)
                 {
-                    var setItems = setsEntity.entity.items;
+                    var setItems = setsEntity.Entity.Items;
                     Console.WriteLine($"Set Items: {setItems}");
 
                     // Initialize setTitles as a new list of tuples
                     //Sets = new ObservableCollection<Set>(setsList);
-                    var sets = new List<Set>(); // Initialize a list of Set objects
-
-                    foreach (var item in setItems)
+                    _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
+                    var allFlashCardsResponse = _httpClient.GetAsync($"https://flash-cards-api.azurewebsites.net/api/flash-cards?pageSize=100&pageNumber=1").GetAwaiter().GetResult();
+                    if (allFlashCardsResponse.IsSuccessStatusCode)
                     {
-                        var setId = (int)item.id; // Extract set Id
-                        var setTitle = (string)item.title; // Extract set Title
-                        Console.WriteLine($"Fetching flashcards for set with Id: {setId} and Title: {setTitle}");
-
-                        // Fetch flashcards data for the current set
-                        _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
-                        var flashcardsResponse = _httpClient.GetAsync($"https://assistant-gateway.azurewebsites.net/api/flash-card-sets/flash-cards/{setId}?pageSize=100&pageNumber=1").Result;
-
-                        Console.WriteLine($"Fetch response for set with Id: {setId} and Title: {setTitle}: StatusCode: {flashcardsResponse.StatusCode}, ReasonPhrase: {flashcardsResponse.ReasonPhrase}, Version: {flashcardsResponse.Version}");
-
-                        if (flashcardsResponse.IsSuccessStatusCode)
+                        var allFlashCardsResponseContent = allFlashCardsResponse.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                        var allFlashCardsResponseData = JsonConvert.DeserializeObject<GetEntityResponse<Flashcard>>(allFlashCardsResponseContent);
+                        var allFlashCards = allFlashCardsResponseData?.Entity.Items;
+                        foreach (var item in setItems)
                         {
+                            var setId = item.Id; // Extract set Id
+                            var setTitle = item.Title; // Extract set Title
+                            Console.WriteLine($"Fetching flashcards for set with Id: {setId} and Title: {setTitle}");
+
+                            // Fetch flashcards data for the current set
+                            var setFlashCards = allFlashCards?.Where(x => x.SetId == setId).ToList();
+
+                            //Console.WriteLine($"Fetch response for set with Id: {setId} and Title: {setTitle}: StatusCode: {flashcardsResponse.StatusCode}, ReasonPhrase: {flashcardsResponse.ReasonPhrase}, Version: {flashcardsResponse.Version}");
+
+
                             // Read and parse the flashcards response
-                            var flashcardsResponseContent = flashcardsResponse.Content.ReadAsStringAsync().Result;
-                            dynamic flashcardsResponseData = JsonConvert.DeserializeObject(flashcardsResponseContent); // Deserialize dynamically
-                            Console.WriteLine($"Flashcards response data: {flashcardsResponseData}");
 
                             // Extract relevant data from the response
-                            var flashcardItems = flashcardsResponseData?.entity?.items;
 
-                            if (flashcardItems != null)
-                            {
-                                // Initialize a list of Flashcard objects
-                                var flashcards = new List<Flashcard>();
+                           
 
-                                // Process each flashcard item
-                                foreach (var flashcardItem in flashcardItems)
-                                {
-                                    // Extract flashcard details
-                                    var flashcardId = (int)flashcardItem.id;
-                                    var flashcardQuestion = (string)flashcardItem.question;
-                                    var flashcardAnswer = (string)flashcardItem.answer;
-
-                                    // Create a new Flashcard object
-                                    var flashcard = new Flashcard
-                                    {
-                                        Id = flashcardId,
-                                        Question = flashcardQuestion,
-                                        Answer = flashcardAnswer
-                                    };
-
-                                    // Add the flashcard to the list
-                                    flashcards.Add(flashcard);
-
-                                    // Output flashcard details
-                                    Console.WriteLine($"Flashcard Question: {flashcard.Question}");
-                                    Console.WriteLine($"Flashcard Answer: {flashcard.Answer}");
-                                }
 
                                 // Create a new Set object
-                                var set = new Set
-                                {
-                                    Id = setId,
-                                    Title = setTitle,
-                                    Flashcards = flashcards // Assign the list of flashcards to the set
-                                };
-
+                              
+                            item.Flashcards = setFlashCards ?? [];
                                 // Add the set to the list of sets
-                                sets.Add(set);
-                            }
-                            else
-                            {
-                                Console.WriteLine($"No flashcards found for set with Id: {setId} and Title: {setTitle}.");
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine($"Failed to fetch flashcards for set with Id: {setId} and Title: {setTitle}. StatusCode: {flashcardsResponse.StatusCode}, ReasonPhrase: {flashcardsResponse.ReasonPhrase}");
+
+                                //else
+                                //{
+                                //    Console.WriteLine($"Failed to fetch flashcards for set with Id: {setId} and Title: {setTitle}. StatusCode: {setFlashCards.StatusCode}, ReasonPhrase: {setFlashCards.ReasonPhrase}");
+                                //}
                         }
                     }
-                    Sets = new ObservableCollection<Set>(sets);
+
+                    Sets = new ObservableCollection<Set>(setsEntity.Entity.Items);
                     foreach (var s1 in Sets)
                     {
                         Console.WriteLine(s1.Id);
@@ -422,7 +386,7 @@ namespace MauiApp1.NewFolder1
         {
             bool isValid = ValidateTitle();
 
-            if(isValid)
+            if (isValid)
             {
                 var payload = new
                 {
@@ -590,7 +554,7 @@ namespace MauiApp1.NewFolder1
             // Navigate to the EachFlashcardSet page and pass the selected set
             Console.WriteLine($"SELECTED {selectedSet.Title}");
             await Shell.Current.Navigation.PushAsync(new EachFlashcardSetPage(_token, _email, _group, _nickname, selectedSet));
-            
+
         }
 
         private async void ExecuteEditSet(Set? selectedSet)
@@ -618,7 +582,7 @@ namespace MauiApp1.NewFolder1
             if (selectedSet != null)
             {
                 Console.WriteLine($"Deleting set: {selectedSet.Title}");
-                
+
                 using var client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
                 var response = await client.DeleteAsync($"https://assistant-gateway.azurewebsites.net/api/flash-card-sets/{selectedSet.Id}");
@@ -684,6 +648,7 @@ namespace MauiApp1.NewFolder1
         public int Id { get; set; }
         public string Question { get; set; }
         public string Answer { get; set; }
+        public int SetId { get; set; }
     }
 
     // Model for representing a set
@@ -692,5 +657,15 @@ namespace MauiApp1.NewFolder1
         public int Id { get; set; }
         public string Title { get; set; }
         public List<Flashcard> Flashcards { get; set; }
+    }
+    public class GetEntityResponse<T>
+    {
+        public bool Success { get; set; }
+        public string ErrorMessage { get; set; }
+        public Entity<T> Entity { get; set; }
+    }
+    public class Entity<T>
+    {
+        public List<T> Items { get; set; }
     }
 }

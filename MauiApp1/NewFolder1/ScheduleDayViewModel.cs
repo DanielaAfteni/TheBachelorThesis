@@ -110,6 +110,7 @@ namespace MauiApp1.NewFolder1
         public string CourseInfo { get; set; }
     }
 
+
     public class ScheduleResponseDay
     {
         public bool Success { get; set; }

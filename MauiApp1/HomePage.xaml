@@ -184,9 +184,6 @@
                             <RowDefinition Height="Auto" />
                             <!-- Row for Click me button -->
                         </Grid.RowDefinitions>
-
-                        <!-- Flashcards label -->
-                        <!-- Flashcards label -->
                         <Label Text="Profile"
                              HorizontalOptions="CenterAndExpand"
                              FontFamily="Inter"

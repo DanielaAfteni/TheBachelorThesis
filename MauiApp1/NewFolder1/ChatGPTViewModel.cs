@@ -89,7 +89,7 @@ namespace MauiApp1.NewFolder1
 
                 // Send POST request to the API
                 using var client = new HttpClient();
-                var response = await client.PostAsync("http://10.0.2.2:8080/chat",
+                var response = await client.PostAsync("https://thesis-ai-assistant.azurewebsites.net/chat",
                                                        new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
 
                 // Check if the request was successful

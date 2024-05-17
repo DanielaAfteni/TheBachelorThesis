@@ -21,7 +21,7 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>MauiApp1</ApplicationTitle>
+		<ApplicationTitle>TUM Assistant</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.mauiapp1</ApplicationId>
@@ -40,10 +40,15 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<!--MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" /-->
+		<!--MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" ForegroundScale="0.65"/-->
+		
+		<!--MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" ForegroundScale="0.65" Color="#512BD4" /-->
+		
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" ForegroundScale="0.65" Color="#FFFFFF" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#FFFFFF" BaseSize="200,200" />
 
 		
 
@@ -52,9 +57,8 @@
 		<MauiImage Update="Resources\Images\edit.svg" Resize="True" BaseSize="20,20" />
 		<MauiImage Update="Resources\Images\delete.svg" Resize="True" BaseSize="20,20" />
 		<MauiImage Update="Resources\Images\person.png" Resize="True" BaseSize="460,460" />
-		<MauiImage Update="Resources\Images\logo.png" Resize="True" BaseSize="100,100" />
-		<MauiImage Update="Resources\Images\new_logo1.png" Resize="True" BaseSize="100,100" />
-		<MauiImage Update="Resources\Images\new_logo22.png" Resize="True" BaseSize="100,100" />
+		<MauiImage Update="Resources\Images\new_logo.svg" Resize="True" BaseSize="75,75" />
+		<MauiImage Update="Resources\Images\new_logo22.png" Resize="True" BaseSize="75,75" />
 		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
 		<!-- Custom Fonts -->

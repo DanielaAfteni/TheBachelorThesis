@@ -1387,7 +1387,7 @@ namespace MauiApp1.NewFolder1
                 Task.Run(async () =>
                 {
                     using var client = new HttpClient();
-                    var response = await client.PostAsync("http://10.0.2.2:8080/chat",
+                    var response = await client.PostAsync("https://thesis-ai-assistant.azurewebsites.net/chat",
                                                            new StringContent(jsonPayload, Encoding.UTF8, "application/json"));
 
                     if (response.IsSuccessStatusCode)

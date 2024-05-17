@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -20,12 +21,14 @@ namespace MauiApp1.NewFolder1
         private RelayCommand _logOutCommand;
 
         private string _group;
+        private string _day;
 
         private ObservableCollection<ScheduleItem> _scheduleItems;
-        public ScheduleGroupViewModel(string token, string group)
+        public ScheduleGroupViewModel(string token, string group, string day)
         {
             _token = token;
             _group = group;
+            _day = day;
             _scheduleItems = new ObservableCollection<ScheduleItem>();
             InitializeAsync();
             Console.WriteLine($"INSERTED {group}");
@@ -47,7 +50,7 @@ namespace MauiApp1.NewFolder1
 
         private async Task GetScheduleAsync()
         {
-            try
+            /*try
             {
                 var client = new HttpClient();
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
@@ -70,6 +73,45 @@ namespace MauiApp1.NewFolder1
                                 ScheduleItems.Add(item);
                             }
                         }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Error in API response: {scheduleResponse.ErrorMessage}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Error getting schedule: Status Code {response.StatusCode}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error getting schedule: {ex.Message}");
+            }*/
+
+            try
+            {
+                var client = new HttpClient();
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _token);
+                var subjectGroup = _group;
+                var subjectDay = Enum.TryParse(_day, true, out DayOfWeek dayOfWeek) ? dayOfWeek : DateTimeOffset.Now.DayOfWeek;
+                var response = await client.GetAsync($"https://assistant-gateway.azurewebsites.net/api/subjects?Group={subjectGroup}&Day={subjectDay}");
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var scheduleResponse = JsonConvert.DeserializeObject<ScheduleApiResponse>(responseContent);
+
+                    if (scheduleResponse.Success && scheduleResponse.Entity != null)
+                    {
+                        // Define the order of days of the week
+
+                        ScheduleItems = new ObservableCollection<ScheduleItem>(
+                        [
+                            .. scheduleResponse.Entity
+                                                        .OrderBy(item => item.StartTime)
+,
+                        ]);
                     }
                     else
                     {
