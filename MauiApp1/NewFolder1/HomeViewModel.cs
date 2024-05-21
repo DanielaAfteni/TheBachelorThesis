@@ -67,9 +67,6 @@ namespace MauiApp1.NewFolder1
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Couldn't authenticate.", "OK");
             }
-            // Navigate to the personal cabinet page
-            //await Shell.Current.GoToAsync($"{nameof(PersonalCabinetPage)}");
-
         }
 
         private async void ExecuteGoToChatGPTPage()

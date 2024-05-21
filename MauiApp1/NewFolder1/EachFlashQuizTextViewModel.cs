@@ -61,25 +61,6 @@ namespace MauiApp1.NewFolder1
             await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
 
-        /*private async void ExecuteCheckAnswers(Set? selectedSet)
-        {
-            int correctCount = 0;
-            for (int i = 0; i < Flashcards.Count; i++)
-            {
-                if (i < UserAnswers.Count && Flashcards[i].Answer == UserAnswers[i])
-                {
-                    correctCount++;
-                }
-            }
-
-            //int totalQuestions = Math.Min(Flashcards.Count, UserAnswers.Count);
-            int totalQuestions = Flashcards.Count;
-            Console.WriteLine($"Total correct answers: {correctCount}/{totalQuestions}");
-            //await Shell.Current.GoToAsync($"//{nameof(ScorePage)}?correctCount={correctCount}&totalQuestions={totalQuestions}");
-            //await Shell.Current.Navigation.PushAsync(new ScorePage(correctCount, totalQuestions));
-            await Shell.Current.Navigation.PushAsync(new ScorePage(_token, _email, _group, _nickname, correctCount, totalQuestions));
-        }*/
-
         private async void ExecuteCheckAnswers(Set? selectedSet)
         {
             int correctCount = 0;

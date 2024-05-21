@@ -120,26 +120,28 @@ namespace MauiApp1.NewFolder1
                     var responseData = JsonConvert.DeserializeObject<dynamic>(responseContent);
 
                     // Extract the userId from the response
-                    string pairId = responseData.id;
-                    string pairQuestion = responseData.question;
-                    string pairAnswer = responseData.answer;
-                    string pairSetId = responseData.setId;
+                    if(responseData != null)
+                    {
+                        int pairId = responseData.entity.id;
+                        string pairQuestion = responseData.entity.question;
+                        string pairAnswer = responseData.entity.answer;
+                        int pairSetId = responseData.entity.setId;
+
+                        // Display userId in the console
+                        Console.WriteLine($"The pairId is {pairId}");
+                        Console.WriteLine($"The pairQuestion is {pairQuestion}");
+                        Console.WriteLine($"The pairAnswer is {pairAnswer}");
+                        Console.WriteLine($"The pairSetId is {pairSetId}");
 
 
-                    // Display userId in the console
-                    Console.WriteLine($"The pairId is {pairId}");
-                    Console.WriteLine($"The pairQuestion is {pairQuestion}");
-                    Console.WriteLine($"The pairAnswer is {pairAnswer}");
-                    Console.WriteLine($"The pairSetId is {pairSetId}");
 
+                        PairQuestion = pairQuestion;
+                        PairAnswer = pairAnswer;
 
-
-                    PairQuestion = pairQuestion;
-                    PairAnswer = pairAnswer;
-
-                    Console.WriteLine($"Response Question: {PairQuestion}");
-                    Console.WriteLine($"Response Answer: {PairAnswer}");
-                    //await Shell.Current.Navigation.PushAsync(new HomePage(userId));
+                        Console.WriteLine($"Response Question: {PairQuestion}");
+                        Console.WriteLine($"Response Answer: {PairAnswer}");
+                        //await Shell.Current.Navigation.PushAsync(new HomePage(userId));
+                    }
                 }
                 else
                 {

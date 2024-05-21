@@ -172,8 +172,8 @@ namespace MauiApp1.NewFolder1
                     var responseData = JsonConvert.DeserializeObject<dynamic>(responseContent);
 
                     // Extract the userId from the response
-                    string setId = responseData.id;
-                    string setTitle = responseData.title;
+                    string setId = responseData.entity.id;
+                    string setTitle = responseData.entity.title;
 
                     // Display userId in the console
                     Console.WriteLine($"The Set ID is {setId}");
@@ -283,6 +283,12 @@ namespace MauiApp1.NewFolder1
         public bool Success { get; set; }
         public string ErrorMessage { get; set; }
         public Entity<T> Entity { get; set; }
+    }
+    public class GetFlashCardResponse
+    {
+        public bool Success { get; set; }
+        public string ErrorMessage { get; set; }
+        public Flashcard Flashcard { get; set; }
     }
     public class Entity<T>
     {
